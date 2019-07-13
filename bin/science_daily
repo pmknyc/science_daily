@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+puts "hello world"
+puts 'now VS Code sees this as a ruby file'
