@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+require './lib/environment.rb'
+
+puts "hello world"
+puts 'now VS Code sees this as a ruby file'
+
+
+CLI.new("https://www.sciencedaily.com/news/top/science/")
