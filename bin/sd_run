@@ -1,8 +1,11 @@
 #!/usr/bin/env ruby
-require './lib/environment.rb'
+require 'pry'
+require_relative '../lib/environment.rb' 
+require_relative '../lib/science_daily/scraper.rb'
+require_relative '../lib/science_daily/cli.rb'
 
-puts "hello world"
-puts 'now VS Code sees this as a ruby file'
 
+puts "begin sd_run"
 
+# ScienceDaily::CLI.new("https://www.sciencedaily.com/news/top/science/")
 CLI.new("https://www.sciencedaily.com/news/top/science/")

@@ -20,10 +20,12 @@
 ## If User Chooses LIST
 
    Call Scraper.new to run 1st level scrape
+
 ## If User chooses AGAIN
    Call CLI.new using diff method in sd_run file
    this method does not show startup Welcome msg
    it shows msg about "Updating headlines list"
+   
 ## If user chooses EXIT
    Prompt "are you sure you want to exit?"  
    If Y, then exit.  If N, then return to prior screem before user typed exit
