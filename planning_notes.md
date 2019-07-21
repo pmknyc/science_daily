@@ -1,31 +1,37 @@
 # UX plan:
 
 ## Startup - 
-   Welcome message
-   Brief description of app
-   Presents user a list of all Top Science headlines (titles)
-     Bonus: ?? also shows user Date headlines updated (must Add to scrape)
+   1. Welcome message
+   2. Brief description of app
+   3. Presents user a list of all Top Science headlines (titles)
+     Bonus: ?? show user Date+Time headline list last updated (Add to scrape)
      Bonus:  ?? user option to order headline list 
              in alpha by title or date order newest 1st 
 
 ## Startup User Options
+
    Get user INPUT for these Choices:
-   1.  See numbered list of headlines
-         Later??: instead of numbered list, 
-                   user enters 1st 3 to 5 chars in title (fun to code this)
-   2.  Start again - in case headlines have updated
-   3.  Exit app
+
+   1. See headlines in alpha or date order?
+        Date: code pulls date from URL of article details (in 1st scrape)
+   2. Update - in case headlines have updated -- 
+        code challenge: the new Scrape checks for new article URLs as compared 
+        with array collected when user first ran the app
+   3. Exit app
 
  
 ## If User Chooses LIST
 
-   Call Scraper.new to run 1st level scrape
+   Call Scraper.new to run 1st level scrape.
 
-## If User chooses AGAIN
+
+## If User chooses UPDATE
+
    Call CLI.new using diff method in sd_run file
    this method does not show startup Welcome msg
    it shows msg about "Updating headlines list"
-   
+
 ## If user chooses EXIT
+
    Prompt "are you sure you want to exit?"  
    If Y, then exit.  If N, then return to prior screem before user typed exit

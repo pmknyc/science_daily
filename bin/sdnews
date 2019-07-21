@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+require_relative '../lib/environment.rb' 
+
+# debug with p statements throughout app
+# will remove in final draft of project
+p "begin sdnews"
+
+ScienceDaily::CLI.new.start
+
