@@ -15,13 +15,13 @@ class ScienceDaily::CLI
     input_start = gets.strip.downcase
     case input_start
       when 'h'
-        # call an Article method that runs the scrape
-        ScienceDaily::Article.new.create_articles   
+        # call Article class method to run first scrape
+        ScienceDaily::Article.get_articles_list  
       when 'q'
         exit
       else
         puts "I don't understand that. Please try again."
-        start
+        start  # recurse
     end
   end
   

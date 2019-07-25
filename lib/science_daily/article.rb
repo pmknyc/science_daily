@@ -6,15 +6,16 @@ class ScienceDaily::Article
 # ?? initialize with optional attributes
 #   so that on first scrape we get title, url for article & date_posted
 #   then on second scrape we use url to scrape details: subtitle, source, summary
-  def initialize(*attributes)
-
+  def initialize(title, url)
+    # use first scrape data to instantiate
+    @title = title
+    @url = url
   end
 
-# from CLI:  user chooses Headlines =>
-#   calls #create_article
-# 
-  def create_articles
-    ScienceDaily::Scraper.scrape_headlines
+
+# call from CLI:  when user chooses Headlines =>
+  def self.get_articles_list
+    ScienceDaily::Scraper.scrape_articles_list
   end
 
 #  calls first scrape 
