@@ -3,7 +3,6 @@ source "https://rubygems.org"
 # gemspec
 
 gem 'nokogiri'
-gem 'open-uri'
 gem 'pry'
 gem 'require_relative'
 gem 'solargraph'

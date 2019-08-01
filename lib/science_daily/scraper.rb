@@ -1,41 +1,26 @@
 class ScienceDaily::Scraper
 
-  @@all = []
   @@site = "https://www.sciencedaily.com/news/top/science/"
   @@page = Nokogiri::HTML(open(@@site))
   
   # use all Class methods b/c only want 
   #   1 Scraper object at a time, not multiple instances
-    
-  def self.all
-    @@all
-  end
 
-    # only ONE instance of Scraper needed
-    # ??  at initialize, check count of @@all
-    # ??  if count > 0, then set @@all = []      
-
-  def self.reset
-    @@all = [] if self.all.length > 0
-    p "ran Scraper.reset; @@all is now #{@@all}"
-  end
-  
-    # first scrape gets all articles titles & 
-    # URL to use for scraping article details
+  # First scrape gets list of articles 
+    # from Latest News section of Top Science page 
+    # Call method to to use for scraping article details
   def self.scrape_articles_list
     p "begin self.scrape_articles_list\n"
-    @@all << self
     articles = @@page.css("ul#featured_shorts li") 
-    #p articles
- 
-    
-    # raw list of titles and 
-    # article URL e.g. /releases/2019/07/190718140440.htm
-    articles.each do |h|       p h.css("a").text, h.css("a").attr("href").value
+     
+    # iterates list to get articles' titles and URLs
+    #    e.g. /releases/2019/07/190718140440.htm
+    articles.each do |h| 
+      title = h.css("a").text 
+      url = h.css("a").attr("href").value
+      ScienceDaily::Article.new(title, url)
     end
   end
-
-
 
    # def self.articles_last_update()
    #  div.time)
