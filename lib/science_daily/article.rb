@@ -13,26 +13,23 @@ class ScienceDaily::Article
     @@all << self
   end
 
+# @@all articles
   def self.all
     @@all
   end
 
-# call from CLI:  when user chooses Headlines =>
-#   runs 1st scrape; latest headlines list
-  def self.get_articles_list
-    ScienceDaily::Scraper.scrape_articles_list
+# call from CLI at start:
+#   => runs 1st scrape; latest headlines list
+  def self.create_articles
+    list = ScienceDaily::Scraper.scrape_articles_list
+    # iterates list to make article objects
+    # and assign each a @title and @url attributes
+      # example URL:  /releases/2019/07/190718140440.htm
+    list.each do |h| 
+      title = h.css("a").text 
+      url = h.css("a").attr("href").value
+      self.new(title, url)
+    end
   end
-
-#  calls first scrape 
-#  makes Article objects and assigns .title attr & URL for details
-#  def create_articles(articles)
-#    self.all.each
-#  end
-
-#
-# 
-
-# method that makes a new Article and adds .title attribute
-
 
 end #class end
