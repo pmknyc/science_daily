@@ -1,4 +1,3 @@
-
 class ScienceDaily::Article
 
   attr_accessor :title, :url, :date_posted, :subtitle, :source, :abstract

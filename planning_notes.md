@@ -1,12 +1,27 @@
 # UX plan:
 
 ## Startup - 
-   1. Welcome message
+# CLI     Display user messages
+   1. Welcome to app
    2. Brief description of app
-   3. Presents user a list of all Top Science headlines (titles)
-     Bonus: ?? show user Date+Time headline list last updated (Add to scrape)
-     Bonus:  ?? user option to order headline list 
-             in alpha by title or date order newest 1st 
+   3. Bonus: ?? show user Date+Time headline list was last updated (Add to scrape)
+
+# Scraper 
+Scrape topscience page for article title and URL
+
+# CLI
+Display numbered list of Latest Headlines - article titles
+Order as loaded in scrape (NOT date ordered on SD site)
+* Bonus:  ?? user option to order headline list in alpha by title or date order newest 1st. (may require inner page scrape to do this, not within project requirements)
+
+# CLI     
+Display & get user choices - article number OR exit
+
+# Scraper
+If user chooses article number:
+* Scrape URL page of that article
+* Get date_submitted
+
 
 ## Startup User Options
 
@@ -27,11 +42,12 @@
 
 ## If User chooses UPDATE
 
-   Call CLI.new using diff method in sd_run file
+   Call CLI.new using different method in executable file
    this method does not show startup Welcome msg
    it shows msg about "Updating headlines list"
 
 ## If user chooses EXIT
 
-   Prompt "are you sure you want to exit?"  
+   Prompt:
+    "Thanks for using Science Daily News! Goodbye!" 
    If Y, then exit.  If N, then return to prior screem before user typed exit

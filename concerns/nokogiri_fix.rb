@@ -1,4 +1,4 @@
-# Srape list of Latest headlines articles from main page
+# Scrape list of Latest headlines articles from main page
 #   Goal: Inspecting & revising Scrape code by Beth
 #   Reason is that code has problems:
 #     1.  it pulls *short* headline from diff place in HTML, not same as full headlines shown on webpage or in RSS feed

@@ -1,6 +1,6 @@
 class ScienceDaily::CLI
 
-  # attr_accessor 
+  attr_reader :list
   
   def initialize
   end
@@ -8,16 +8,14 @@ class ScienceDaily::CLI
   def start
     # tells user what to do
     start_doc
-    # Display headlines: call Article methods to run first scrape
-      ScienceDaily::Article.get_articles_list  
-      
-      ScienceDaily::Article.all.each.with_index(1) do |a, i| 
-        unless i == 10
-          puts " #{i}. #{a.title}"
-        else 
-          puts "#{i}. #{a.title}"
-        end
-      end
+    
+    # make article objects
+    ScienceDaily::Article.create_articles   
+    
+    # Display article headlines list: 
+    #   call Article methods to run first scrape  
+    list_articles
+
     choose_or_exit_doc
     input_choose = gets.strip.downcase
    # case input_choose
@@ -33,13 +31,26 @@ class ScienceDaily::CLI
   end
   
 # ask user to choose an article
-  
+#  ?? use #collect to hold initial order of list, then compare
+#     with *updated* list if user runs app #again 
+#     URLs will really determine if article is *new* in update
+#     but for UX clarity, should list articles in original order 
+#     except put *new* articles on top
+#  ?? look up hash methods or ways to keep track of articles order
+def list_articles
+  ScienceDaily::Article.all.collect.with_index(1) do |a, i| 
+    unless i > 9
+      puts " #{i}. #{a.title}"
+    else 
+      puts "#{i}. #{a.title}"
+    end
+    # @list << 
+  end
+  p self.list
+end
 
-# ?? initialize with URL of site to scrape
-#   allows for adding other 'top news' category sites 
-#   with later versions of app
-
-# heredoc to use at initial start of app
+# heredoc to use at start of app 
+#   (?? not used for "updated" articles list feature - if added)
   def start_doc
     puts <<~WELCOME
 
@@ -54,7 +65,7 @@ class ScienceDaily::CLI
   def choose_or_exit_doc
     puts <<~CHOICE
       
-      To learn more, enter the number of any headline that fascinates you.
+      Enter the number of a headline that fascinates you to learn more.
       To exit the application, type "e" or "exit".
    
       CHOICE
@@ -64,7 +75,7 @@ class ScienceDaily::CLI
     # ScienceDaily.com 
     # To continue, type a choice and press <Enter>\n" 
     # h     see updated Headlines"
-    # q     Quit the application\m"
+    # e     exit the application\m"
   end
   
 end # class CLI end
