@@ -53,6 +53,7 @@ class ScienceDaily::CLI
       
   def choose_or_exit_doc
     puts <<~CHOICE
+      
       To learn more, enter the number of any headline that fascinates you.
       To exit the application, type "e" or "exit".
    
