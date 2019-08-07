@@ -24,9 +24,9 @@ class ScienceDaily::Article
     # iterates list to make article objects
     # and assign each a @title and @url attributes
       # example URL:  /releases/2019/07/190718140440.htm
-    list.each do |h| 
-      title = h.css("a").text 
-      url = h.css("a").attr("href").value
+    list.each do |headline| 
+      title = headline.css("a").text 
+      url = headline.css("a").attr("href").value
       self.new(title, url)
     end
   end
