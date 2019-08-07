@@ -6,50 +6,50 @@ class ScienceDaily::CLI
   end
 
   def start
-    # tells user what to do
-    start_doc
+    start_doc # Welcome message heredoc
     
-    # make article objects
-    ScienceDaily::Article.create_articles   
-    
-    # Display article headlines list: 
+    ScienceDaily::Article.create_articles # 1st scrape, make article objects   
+    list_articles # Display article headlines
     #   call Article methods to run first scrape  
-    list_articles
 
-    choose_or_exit_doc
-    input_choose = gets.strip.downcase
-   # case input_choose
-   #   when (/[1-10]/)
-   #   
-   #     end
-   #   when 'e' || 'exit'
-   #     exit
-   #   else
-   #     puts "I don't understand that. Please try again."
-   #     start  # recurse
-   # end
-  end
+    choose_or_exit_doc # Explain choice options to User
+    get_user_choice # article number to see OR exit app
+    # display_article_chosen #if 'exit' not chosen in #get_user_choice
+    scrape_article_features # call Article.add_article_features
+
   
-# ask user to choose an article
-#  ?? use #collect to hold initial order of list, then compare
-#     with *updated* list if user runs app #again 
-#     URLs will really determine if article is *new* in update
-#     but for UX clarity, should list articles in original order 
-#     except put *new* articles on top
-#  ?? look up hash methods or ways to keep track of articles order
-def list_articles
-  ScienceDaily::Article.all.collect.with_index(1) do |a, i| 
-    unless i > 9
-      puts " #{i}. #{a.title}"
-    else 
-      puts "#{i}. #{a.title}"
-    end
-    # @list << 
   end
-  p self.list
-end
 
-# heredoc to use at start of app 
+  def list_articles
+    ScienceDaily::Article.all.collect.with_index(1) do |a, i| 
+      unless i > 9
+        puts " #{i}. #{a.title}"
+      else 
+        puts "#{i}. #{a.title}"
+      end
+      # @list << 
+    end
+    p self.list
+  end
+
+# ?? TODO pseudocode how to get & convert number vs string input
+#   match input to any? in array of possible choices
+#    ['e', 'exit', 'ext', ('1'..'10')]
+#      how to work with ranges as array elements
+  def get_user_choice    
+    input = gets.strip.to_i # gets User's article choice || exit
+      if (1..9).include?(
+    )    case input
+      when "99"  #temp option while coding Scraper.scrape_article_features
+      
+      when 'e' || 'exit'
+        exit
+      else
+      puts "I don't understand that. Please try again."
+      start  # recurse
+  end
+
+# heredocs for user interaction
 #   (?? not used for "updated" articles list feature - if added)
   def start_doc
     puts <<~WELCOME
@@ -65,7 +65,8 @@ end
   def choose_or_exit_doc
     puts <<~CHOICE
       
-      Enter the number of a headline that fascinates you to learn more.
+      Enter the NUMBER of a headline that fascinates you to learn more.
+
       To exit the application, type "e" or "exit".
    
       CHOICE
