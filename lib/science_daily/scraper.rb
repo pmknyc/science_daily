@@ -2,7 +2,6 @@ class ScienceDaily::Scraper
 
   @@site = "https://www.sciencedaily.com/news/top/science/"
   @@page = Nokogiri::HTML(open(@@site))
-  @@article = 
   
   # use all Class methods b/c only want 
   #   1 Scraper object at a time, not multiple instances
@@ -15,6 +14,9 @@ class ScienceDaily::Scraper
     articles = @@page.css("ul#featured_shorts li") 
   end
 
+  # ?? how to get chosen article object seen by method
+  #    use input from CLI#get_user_choice and call 
+  #    an Article method that calls this scrape method 
   def self.scrape_article_features
     p "in Scraper.scrape_article_features"
     p article.css("col-sm-8")
