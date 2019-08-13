@@ -14,9 +14,13 @@ class ScienceDaily::Scraper
     articles = @@page.css("ul#featured_shorts li") 
   end
 
-  # ?? how to get chosen article object seen by method
-  #    use input from CLI#get_user_choice and call 
-  #    an Article method that calls this scrape method 
+  
+# User chooses article for more info:
+#  get input from CLI#get_user_choice 
+#  input should match index of an article object in Article.all array
+#  URL is argument to this Scraper method
+# Find Article object matching chosen article's URL
+# an Article method that calls this scrape method 
   def self.scrape_article_features
     p "in Scraper.scrape_article_features"
     p article.css("col-sm-8")
