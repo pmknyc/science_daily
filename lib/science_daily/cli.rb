@@ -9,20 +9,18 @@ class ScienceDaily::CLI
     start_doc # Welcome message heredoc
     
     ScienceDaily::Article.create_articles # 1st scrape, make article objects   
+  
     list_articles # Display article headlines
     #   call Article methods to run first scrape  
-
-    choose_or_exit_doc # Explain choice options to User
     get_user_choice # article number to see OR exit app
-    # display_article_chosen #if 'exit' not chosen in #get_user_choice
-    scrape_article_features # call Article.add_article_features
-
   
+    # display_article_chosen if 'exit' not chosen in #get_user_choice
+    #scrape_article_features # call Article.add_article_features
   end
 
   def list_articles
     ScienceDaily::Article.all.collect.with_index(1) do |a, i| 
-      unless i > 9
+      unless i == 10
         puts " #{i}. #{a.title}"
       else 
         puts "#{i}. #{a.title}"
@@ -36,17 +34,26 @@ class ScienceDaily::CLI
 #   match input to any? in array of possible choices
 #    ['e', 'exit', 'ext', ('1'..'10')]
 #      how to work with ranges as array elements
-  def get_user_choice    
-    input = gets.strip.to_i # gets User's article choice || exit
-      if (1..9).include?(
-    )    case input
-      when "99"  #temp option while coding Scraper.scrape_article_features
-      
-      when 'e' || 'exit'
-        exit
+  def get_user_choice
+    choose_or_exit_doc 
+    p 'in CLI#get_user_choice method'
+    input = gets.strip # gets User's article choice || exit
+    text_input = ['e', 'exit', 'ext'].include?(input.downcase) # 'exit' app choice: options  allow typo errors
+    digit_input = (1..10).include?(input.to_i) # number choices; 10 articles in "latest headlines" list
+    #choice = nil
+    case
+      when text_input
+        #p "#{text_input == true}"
+        choice = exit
+      when digit_input
+        p "digit_input: #{(digit_input == true)}"
+        choice = input.to_i
       else
-      puts "I don't understand that. Please try again."
-      start  # recurse
+        puts "I don't understand that. Please try again."
+        get_user_choice # recurse until valid user choice
+    end
+    puts "User choice: #{choice}"
+     choice
   end
 
 # heredocs for user interaction
