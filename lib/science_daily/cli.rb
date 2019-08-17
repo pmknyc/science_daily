@@ -49,13 +49,12 @@ class ScienceDaily::CLI
 
 # HEREDOCS SECTION: user interaction messages
   def start_doc
-    update_time = ScienceDaily::Article.get_update_time
     puts <<~WELCOME
 
                     Welcome to Science Daily News
       
-      Breaking news headlines in science from around the world!
-      Updated:  #{update_time}
+          Breaking news in science from around the world!
+             <<  Headlines Updated: #{ScienceDaily::Article.get_update_time}  >>
 
     WELCOME
   end
@@ -75,7 +74,7 @@ class ScienceDaily::CLI
       
     **** Thank you! We hope you found something fascinating! ****
     
-              Headlines are updated many times each day. 
+              Headlines are updated many times each day 
               Please come again any time you need some 
               Science FACTS instead of FAKE NEWS!
     
