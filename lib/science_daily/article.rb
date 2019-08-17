@@ -33,6 +33,7 @@ class ScienceDaily::Article
     end
   end
 
+  def get
   def self.add_article_details
     p "in Article.add_article_details"
 

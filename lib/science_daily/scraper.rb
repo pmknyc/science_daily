@@ -1,7 +1,7 @@
 class ScienceDaily::Scraper
 
-  SITE = "https://www.sciencedaily.com/news/top/science/"
-  PAGE = Nokogiri::HTML(open(SITE))
+  SITE = "https://www.sciencedaily.com"
+  LIST_PAGE = "#{SITE}/news/top/science/"
   
   # use all Class methods b/c only want 
   #   1 Scraper object at a time, not multiple instances
@@ -12,21 +12,22 @@ class ScienceDaily::Scraper
     # Call method to to use for scraping article details
   def self.scrape_list_updated_time #update time for 10 Latest Headlines"
     p "Scraper: begin .scrape_list_updated_time"
-    update_text = PAGE.css("div#time").text
-    updated = update_text.delete_prefix('updated ').chop
+    scrape = Nokogiri::HTML(open(LIST_PAGE))
+    update_text = scrape.css("div#time").text
+    updated = update_text.delete_prefix('updated ').chop #clean up to show only time of day
   end
   
   def self.scrape_articles_list
     p "Scraper: begin .scrape_articles_list"
-    articles = PAGE.css("ul#featured_shorts li") 
+    scrape = Nokogiri::HTML(open(LIST_PAGE))
+    articles = scrape.css("ul#featured_shorts li") 
   end
 
-  
 # User chooses article for more info:
 #  get input from CLI#get_user_choice 
-#  input should match index of an article object in Article.all array
-#  URL is argument to this Scraper method
-# Find Article object matching chosen article's URL
+#  convert input to index of an article object in Article.all array
+#  get the article.url attrib; interpolate it onto SITE URL as suffix
+#     to define the scrape site 
 # an Article method that calls this scrape method 
   def self.scrape_article_features
     p "in Scraper.scrape_article_features"
