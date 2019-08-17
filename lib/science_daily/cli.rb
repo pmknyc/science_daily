@@ -7,7 +7,7 @@ class ScienceDaily::CLI
     # display_chosen_article # call methods for 2nd scrape, chosen article's URL, add feature attributes, display details to user
   
   # hard code scrape call for testing - refactor to call local method or Article method
-    ScienceDaily::Scraper.scrape_article_features # call Article.add_article_details
+    ScienceDaily::Article.add_article_features # call Article.add_article_details
   end 
 
   def self.list_articles
@@ -41,21 +41,21 @@ class ScienceDaily::CLI
     choice
   end
 
-# #choice_to_index
-# helper method; call from Article class to 
-# help look up chosen article in Article.all
+# #choice_index -- Helper
+# call from Article class to help find chosen article in Article.all
   def self.choice_index
-              p "choice index = #{get_user_choice - 1}"
     article_index = get_user_choice - 1
   end
 
-  def self.find_article
-  end
-
-  def self.display_chosen_article
+ def self.display_chosen_article
               p "in CLI #display_chosen_article"
+    ScienceDaily::Article.display_chosen_article
+    # call Article method that uses Article internal methods to 
+    # find chosen article, initiate scrape for features data
+    # and assign features as the article's attributes
     
   end
+
 # HEREDOCS SECTION: user interaction messages
   def self.start_doc
     puts <<~WELCOME

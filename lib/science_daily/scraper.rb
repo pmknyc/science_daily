@@ -6,17 +6,20 @@ class ScienceDaily::Scraper
   # use all Class methods b/c only want 
   #   1 Scraper object at a time, not multiple instances
 
-  # First scrape gets list of articles 
-    # from Latest News section of Top Science page 
-    # AND scrapes current "update time" for that list
-    # Call method to to use for scraping article details
+  # .scrape_list_updated_time 
+  #   gets current "update time" for
+  #   10 Latest News headlines on Top Science page
+  #   shows most recent refresh time of headlines
+  #   we scrape in .scrape_articles_list method
   def self.scrape_list_updated_time #update time for 10 Latest Headlines"
-    p "Scraper: begin .scrape_list_updated_time"
     scrape = Nokogiri::HTML(open(LIST_PAGE))
     update_text = scrape.css("div#time").text
     updated = update_text.delete_prefix('updated ').chop #clean up to show only time of day
   end
   
+  # .scrape_articles_list: gets list of articles 
+  #   from Latest News section of Top Science page 
+  #   Call this method to to use for scraping article details
   def self.scrape_articles_list
     p "Scraper: begin .scrape_articles_list"
     scrape = Nokogiri::HTML(open(LIST_PAGE))
@@ -26,17 +29,20 @@ class ScienceDaily::Scraper
 # User chooses article for more info:
 #  get input from CLI#get_user_choice 
 #  convert input to index of an article object in Article.all array
-#  get the article.url attrib; interpolate it onto SITE URL as suffix
+#  get that article's article.url attrib & interpolate it onto SITE URL
 #     to define the scrape site 
-# an Article method that calls this scrape method 
-  def self.scrape_article_features
-    p "in Scraper.scrape_article_features"
-    p article.css("col-sm-8")
-      #("dl.dl-horizontal dl-custom dt").text
-      headline = article.css("h1#headline").text
-      puts article.css("dd#date_posted").text
-      puts article.css("dd#source").text
-      puts article.css("dd#abstract").text
+# an Article method that calls this scrape method to read features & 
+# use as instance vars/attributes
+
+  def self.scrape_article_features(chosen_article)
+    full_url = "#{SITE}#{chosen_article.url}"
+    scrape = Nokogiri::HTML(open(full_url))
+    chosen_article.subtitle = scrape.css("h1#headline").text
+    chosen_article.date_posted = scrape.css("dd#date_posted").text
+    chosen_article.source = scrape.css("dd#source").text
+    chosen_article.abstract = scrape.css("dd#abstract").text
+    chosen_article.full_url = full_url
+    chosen_article
   end 
 
 end #class end

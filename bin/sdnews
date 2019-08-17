@@ -5,5 +5,5 @@ require_relative '../lib/environment.rb'
 # will remove in final draft of project
 p "begin sdnews"
 
-ScienceDaily::CLI.new.start
+ScienceDaily::CLI.start
 
