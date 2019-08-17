@@ -1,10 +1,5 @@
 class ScienceDaily::CLI
 
-  attr_reader :list
-  
-  def initialize
-  end
-
   def start
     start_doc # Welcome message heredoc
     list_articles # Call methods to scrape, create article objects, display article headlines list
@@ -41,25 +36,26 @@ class ScienceDaily::CLI
         puts "I don't understand that. Please try again."
         get_user_choice # recurse until valid user choice
     end
-            p "User choice: #{choice}"
     choice
   end
 
   def display_chosen_article
     p "in CLI #display_chosen_article"
-    chosen = ScienceDaily::Article.all[get_user_choice - 1]
+    article_index = get_user_choice - 1
+    chosen = ScienceDaily::Article.all[]
 
 
   end
 
 # HEREDOCS SECTION: user interaction messages
   def start_doc
+    update_time = ScienceDaily::Scraper.scrape_list_updated_time
     puts <<~WELCOME
 
                     Welcome to Science Daily News
       
       Breaking news headlines in science from around the world!
-      Updated:  ??update time here??
+      Updated:  #{update_time}
 
     WELCOME
   end
@@ -87,14 +83,4 @@ class ScienceDaily::CLI
 
     BYE
   end
-
-      #  feature to add later - option to display updated headlines
-      #   the parent site updates its headlines whenever it receives new content 
-        def again_heredoc 
-          # ScienceDaily.com 
-          # To continue, type a choice and press <Enter>\n" 
-          # h     see updated Headlines"
-          # e     exit the application\m"
-        end
-  
 end # class CLI end
