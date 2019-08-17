@@ -7,57 +7,52 @@ class ScienceDaily::CLI
 
   def start
     start_doc # Welcome message heredoc
-    
-    ScienceDaily::Article.create_articles # 1st scrape, make article objects   
-  
-    list_articles # Display article headlines
-    #   call Article methods to run first scrape  
-    get_user_choice # article number to see OR exit app
-  
-    # display_article_chosen if 'exit' not chosen in #get_user_choice
-    #scrape_article_features # call Article.add_article_features
-  end
+    list_articles # Call methods to scrape, create article objects, display article headlines list
+    get_user_choice # returns: article to see OR goodbye message + exit  
+    # display_chosen_article # call methods for 2nd scrape, chosen article's URL, add feature attributes, display details to user
+    #scrape_article_features # call Article.add_article_details
+  end 
 
   def list_articles
+    ScienceDaily::Article.create_articles # 1st scrape, make article objects   
+    # now iterate all article objects to display list for user
     ScienceDaily::Article.all.collect.with_index(1) do |a, i| 
-      unless i == 10
+      unless i > 9
         puts " #{i}. #{a.title}"
       else 
         puts "#{i}. #{a.title}"
       end
-      # @list << 
     end
-    p self.list
   end
 
-# ?? TODO pseudocode how to get & convert number vs string input
-#   match input to any? in array of possible choices
-#    ['e', 'exit', 'ext', ('1'..'10')]
-#      how to work with ranges as array elements
   def get_user_choice
     choose_or_exit_doc 
-    p 'in CLI#get_user_choice method'
+            p 'in CLI#get_user_choice method'
     input = gets.strip # gets User's article choice || exit
-    text_input = ['e', 'exit', 'ext'].include?(input.downcase) # 'exit' app choice: options  allow typo errors
+    text_input = ['e', 'ex', 'ext','exit'].include?(input.downcase) # 'exit' app options allow typo errors
     digit_input = (1..10).include?(input.to_i) # number choices; 10 articles in "latest headlines" list
-    #choice = nil
     case
       when text_input
-        #p "#{text_input == true}"
+        goodbye_doc
         choice = exit
       when digit_input
-        p "digit_input: #{(digit_input == true)}"
         choice = input.to_i
       else
         puts "I don't understand that. Please try again."
         get_user_choice # recurse until valid user choice
     end
-    puts "User choice: #{choice}"
-     choice
+            p "User choice: #{choice}"
+    choice
   end
 
-# heredocs for user interaction
-#   (?? not used for "updated" articles list feature - if added)
+  def display_chosen_article
+    p "in CLI #display_chosen_article"
+    chosen = ScienceDaily::Article.all[get_user_choice - 1]
+
+
+  end
+
+# HEREDOCS SECTION: user interaction messages
   def start_doc
     puts <<~WELCOME
 
@@ -72,18 +67,34 @@ class ScienceDaily::CLI
   def choose_or_exit_doc
     puts <<~CHOICE
       
-      Enter the NUMBER of a headline that fascinates you to learn more.
+      To learn more about a headline, enter its NUMBER.
 
-      To exit the application, type "e" or "exit".
+      To exit the application, enter "e" or "exit".
    
       CHOICE
   end
 
-  def again_heredoc
-    # ScienceDaily.com 
-    # To continue, type a choice and press <Enter>\n" 
-    # h     see updated Headlines"
-    # e     exit the application\m"
+  def goodbye_doc
+    puts <<~BYE
+      
+    **** Thank you! We hope you found something fascinating! ****
+    
+              Headlines are updated many times each day. 
+              Please come again any time you need some 
+              Science FACTS instead of FAKE NEWS!
+    
+    *************************************************************
+
+    BYE
   end
+
+      #  feature to add later - option to display updated headlines
+      #   the parent site updates its headlines whenever it receives new content 
+        def again_heredoc 
+          # ScienceDaily.com 
+          # To continue, type a choice and press <Enter>\n" 
+          # h     see updated Headlines"
+          # e     exit the application\m"
+        end
   
 end # class CLI end
