@@ -1,7 +1,7 @@
 class ScienceDaily::Scraper
 
-  @@site = "https://www.sciencedaily.com/news/top/science/"
-  @@page = Nokogiri::HTML(open(@@site))
+  SITE = "https://www.sciencedaily.com/news/top/science/"
+  PAGE = Nokogiri::HTML(open(SITE))
   
   # use all Class methods b/c only want 
   #   1 Scraper object at a time, not multiple instances
@@ -11,10 +11,14 @@ class ScienceDaily::Scraper
     # Call method to to use for scraping article details
   def self.scrape_articles_list
     p "Scraper: begin .scrape_articles_list\n"
-    articles = @@page.css("ul#featured_shorts li") 
+    articles = PAGE.css("ul#featured_shorts li") 
   end
 
-  
+  def self.scrape_list_updated_time
+    update_text = PAGE.css("div#time").text
+    updated = update_text.delete_prefix('updated ').chop
+    binding.pry
+  end
 # User chooses article for more info:
 #  get input from CLI#get_user_choice 
 #  input should match index of an article object in Article.all array
