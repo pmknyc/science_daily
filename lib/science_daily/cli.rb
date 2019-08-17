@@ -1,14 +1,16 @@
 class ScienceDaily::CLI
 
-  def start
+  def self.start
     start_doc # Welcome message heredoc
     list_articles # Call methods to scrape, create article objects, display article headlines list
-    get_user_choice # returns: article to see OR goodbye message + exit  
+    get_user_choice # returns: article number chosen OR goodbye message + exit  
     # display_chosen_article # call methods for 2nd scrape, chosen article's URL, add feature attributes, display details to user
-    #scrape_article_features # call Article.add_article_details
+  
+  # hard code scrape call for testing - refactor to call local method or Article method
+    ScienceDaily::Scraper.scrape_article_features # call Article.add_article_details
   end 
 
-  def list_articles
+  def self.list_articles
     ScienceDaily::Article.create_articles # 1st scrape, make article objects   
     # now iterate all article objects to display list for user
     ScienceDaily::Article.all.collect.with_index(1) do |a, i| 
@@ -20,7 +22,7 @@ class ScienceDaily::CLI
     end
   end
 
-  def get_user_choice
+  def self.get_user_choice
     choose_or_exit_doc 
             p 'in CLI#get_user_choice method'
     input = gets.strip # gets User's article choice || exit
@@ -39,16 +41,23 @@ class ScienceDaily::CLI
     choice
   end
 
-  def display_chosen_article
-    p "in CLI #display_chosen_article"
+# #choice_to_index
+# helper method; call from Article class to 
+# help look up chosen article in Article.all
+  def self.choice_index
+              p "choice index = #{get_user_choice - 1}"
     article_index = get_user_choice - 1
-    chosen = ScienceDaily::Article.all[]
-
-
   end
 
+  def self.find_article
+  end
+
+  def self.display_chosen_article
+              p "in CLI #display_chosen_article"
+    
+  end
 # HEREDOCS SECTION: user interaction messages
-  def start_doc
+  def self.start_doc
     puts <<~WELCOME
 
                     Welcome to Science Daily News
@@ -59,7 +68,7 @@ class ScienceDaily::CLI
     WELCOME
   end
       
-  def choose_or_exit_doc
+  def self.choose_or_exit_doc
     puts <<~CHOICE
       
       To learn more about a headline, enter its NUMBER.
@@ -69,7 +78,7 @@ class ScienceDaily::CLI
       CHOICE
   end
 
-  def goodbye_doc
+  def self.goodbye_doc
     puts <<~BYE
       
     **** Thank you! We hope you found something fascinating! ****
