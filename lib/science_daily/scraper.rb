@@ -8,17 +8,20 @@ class ScienceDaily::Scraper
 
   # First scrape gets list of articles 
     # from Latest News section of Top Science page 
+    # AND scrapes current "update time" for that list
     # Call method to to use for scraping article details
+  def self.scrape_list_updated_time #update time for 10 Latest Headlines"
+    p "Scraper: begin .scrape_list_updated_time"
+    update_text = PAGE.css("div#time").text
+    updated = update_text.delete_prefix('updated ').chop
+  end
+  
   def self.scrape_articles_list
-    p "Scraper: begin .scrape_articles_list\n"
+    p "Scraper: begin .scrape_articles_list"
     articles = PAGE.css("ul#featured_shorts li") 
   end
 
-  def self.scrape_list_updated_time
-    update_text = PAGE.css("div#time").text
-    updated = update_text.delete_prefix('updated ').chop
-    binding.pry
-  end
+  
 # User chooses article for more info:
 #  get input from CLI#get_user_choice 
 #  input should match index of an article object in Article.all array
