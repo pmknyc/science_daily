@@ -4,10 +4,24 @@
 # CLI     Display user messages
    1. Welcome to app
    2. Brief description of app
-   3. Bonus: ?? show user Date+Time headline list was last updated (Add to scrape)
+   3. Requests and collects User choices 
+      a. at start, ask user to choose article number to see more info OR exit app
+      b. 'gets' user input 
+   Bonus: ?? show user Date+Time headline list was last updated (Add to scrape)
 
 # Scraper 
-Scrape topscience page for article title and URL
+1st scrape: Scrape Top Science page for article title and URL
+
+2nd scrape: 
+CLI:  User chooses article for more info
+      Get input number from CLI user choice methods
+
+Article: 
+      #find_matching_article = match input number to Article.all array index 
+      call article.URL for matching article as argument to 2nd scrape Scraper method
+in Article: find Article object matching chosen article's URL
+Nokogiri opens page using article's URL
+
 
 # CLI
 Display numbered list of Latest Headlines - article titles

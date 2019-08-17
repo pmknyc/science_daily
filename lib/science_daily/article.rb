@@ -24,7 +24,7 @@ class ScienceDaily::Article
 #    calls Scraper method that runs 1st scrape
 #    to get latest headlines list
   def self.create_articles
-    updated = ScienceDaily::Scraper.scrape_list_updated_time
+    updated = self.get_update_time
     articles = ScienceDaily::Scraper.scrape_articles_list
     articles.each do |headline|   # iterates list to make article objects
       title = headline.css("a").text 
@@ -33,7 +33,10 @@ class ScienceDaily::Article
     end
   end
 
-  def get
+  def self.get_update_time
+    ScienceDaily::Scraper.scrape_list_updated_time
+  end
+
   def self.add_article_details
     p "in Article.add_article_details"
 

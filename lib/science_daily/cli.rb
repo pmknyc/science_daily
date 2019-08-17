@@ -49,7 +49,7 @@ class ScienceDaily::CLI
 
 # HEREDOCS SECTION: user interaction messages
   def start_doc
-    update_time = ScienceDaily::Scraper.scrape_list_updated_time
+    update_time = ScienceDaily::Article.get_update_time
     puts <<~WELCOME
 
                     Welcome to Science Daily News
