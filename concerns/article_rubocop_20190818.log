@@ -1,0 +1,288 @@
+[15:57:05]  science_daily (master)
+// ♥  rubocop -a /lib/science_daily/scraper.rb
+Inspecting 1 file
+
+
+0 files inspected, no offenses detected
+Error: No such file or directory: /lib/science_daily/scraper.rb
+[16:06:10]  science_daily (master)
+// ♥  rubocop -a lib/science_daily/scraper.rb
+Inspecting 1 file
+W
+
+Offenses:
+
+lib/science_daily/scraper.rb:1:1: C: [Corrected] Style/FrozenStringLiteralComment: Missing magic comment # frozen_string_literal: true.
+class ScienceDaily::Scraper
+^
+lib/science_daily/scraper.rb:2:1: C: [Corrected] Layout/EmptyLinesAroundClassBody: Extra empty line detected at class body beginning.
+lib/science_daily/scraper.rb:3:1: C: Style/Documentation: Missing top-level class documentation comment.
+class ScienceDaily::Scraper
+^^^^^
+lib/science_daily/scraper.rb:3:7: C: Style/ClassAndModuleChildren: Use nested module/class definitions instead
+of compact style.
+class ScienceDaily::Scraper
+      ^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/scraper.rb:3:10: C: [Corrected] Style/MutableConstant: Freeze mutable objects assigned to constants.
+  SITE = "https://www.sciencedaily.com"
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/scraper.rb:3:10: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+  SITE = "https://www.sciencedaily.com"
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/scraper.rb:4:10: C: [Corrected] Style/RedundantFreeze: Do not freeze immutable objects, as freezing them has no effect.
+  SITE = 'https://www.sciencedaily.com'.freeze
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/scraper.rb:4:15: C: [Corrected] Style/MutableConstant: Freeze mutable objects assigned to constants.
+  LIST_PAGE = "#{SITE}/news/top/science/"
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/scraper.rb:5:1: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+lib/science_daily/scraper.rb:5:15: C: [Corrected] Style/RedundantFreeze: Do not freeze immutable objects, as freezing them has no effect.
+  LIST_PAGE = "#{SITE}/news/top/science/".freeze
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/scraper.rb:6:40: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+  # use all Class methods b/c only want
+                                       ^
+lib/science_daily/scraper.rb:9:30: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+  # .scrape_list_updated_time
+                             ^
+lib/science_daily/scraper.rb:14:37: C: [Corrected] Layout/LeadingCommentSpace: Missing space after #.
+  def self.scrape_list_updated_time #update time for 10 Latest Headlines"
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/scraper.rb:15:37: C: Style/CommentedKeyword: Do not place comments on the same line as the def keyword.
+  def self.scrape_list_updated_time # update time for 10 Latest Headlines"
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/scraper.rb:16:29: C: Security/Open: The use of Kernel#open is a serious security risk.
+    scrape = Nokogiri::HTML(open(LIST_PAGE))
+                            ^^^^
+lib/science_daily/scraper.rb:16:30: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you
+don't need string interpolation or special symbols.
+    update_text = scrape.css("div#time").text
+                             ^^^^^^^^^^
+lib/science_daily/scraper.rb:17:58: C: [Corrected] Layout/LeadingCommentSpace: Missing space after #.
+    updated = update_text.delete_prefix('updated ').chop #clean up to show only time of day
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/scraper.rb:18:5: W: Lint/UselessAssignment: Useless assignment to variable - updated.
+    updated = update_text.delete_prefix('updated ').chop # clean up to show only time of day
+    ^^^^^^^
+lib/science_daily/scraper.rb:18:81: C: Metrics/LineLength: Line is too long. [92/80]
+    updated = update_text.delete_prefix('updated ').chop # clean up to show only time of day
+                                                                                ^^^^^^^^^^^^
+lib/science_daily/scraper.rb:19:1: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+lib/science_daily/scraper.rb:20:49: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+  # .scrape_articles_list: gets list of articles
+                                                ^
+lib/science_daily/scraper.rb:21:51: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+  #   from Latest News section of Top Science page
+                                                  ^
+lib/science_daily/scraper.rb:24:7: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    p "Scraper: begin .scrape_articles_list"
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/scraper.rb:26:27: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you
+don't need string interpolation or special symbols.
+    articles = scrape.css("ul#featured_shorts li")
+                          ^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/scraper.rb:26:29: C: Security/Open: The use of Kernel#open is a serious security risk.
+    scrape = Nokogiri::HTML(open(LIST_PAGE))
+                            ^^^^
+lib/science_daily/scraper.rb:26:51: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+    articles = scrape.css("ul#featured_shorts li")
+                                                  ^
+lib/science_daily/scraper.rb:27:5: W: Lint/UselessAssignment: Useless assignment to variable - articles.
+    articles = scrape.css('ul#featured_shorts li')
+    ^^^^^^^^
+lib/science_daily/scraper.rb:30:38: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+#  get input from CLI#get_user_choice
+                                     ^
+lib/science_daily/scraper.rb:33:32: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+#     to define the scrape site
+                               ^
+lib/science_daily/scraper.rb:34:69: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+# an Article method that calls this scrape method to read features &
+                                                                    ^
+lib/science_daily/scraper.rb:35:1: C: [Corrected] Layout/CommentIndentation: Incorrect indentation detected (column 0 instead of 2).
+# use as instance vars/attributes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/scraper.rb:40:29: C: Security/Open: The use of Kernel#open is a serious security risk.
+    scrape = Nokogiri::HTML(open(full_url))
+                            ^^^^
+lib/science_daily/scraper.rb:40:42: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you
+don't need string interpolation or special symbols.
+    chosen_article.subtitle = scrape.css("h1#headline").text
+                                         ^^^^^^^^^^^^^
+lib/science_daily/scraper.rb:41:45: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you
+don't need string interpolation or special symbols.
+    chosen_article.date_posted = scrape.css("dd#date_posted").text
+                                            ^^^^^^^^^^^^^^^^
+lib/science_daily/scraper.rb:42:40: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you
+don't need string interpolation or special symbols.
+    chosen_article.source = scrape.css("dd#source").text
+                                       ^^^^^^^^^^^
+lib/science_daily/scraper.rb:43:42: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you
+don't need string interpolation or special symbols.
+    chosen_article.abstract = scrape.css("dd#abstract").text
+                                         ^^^^^^^^^^^^^
+lib/science_daily/scraper.rb:46:6: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+  end
+     ^
+lib/science_daily/scraper.rb:47:1: C: [Corrected] Layout/EmptyLinesAroundClassBody: Extra empty line detected at class body end.
+lib/science_daily/scraper.rb:48:5: C: [Corrected] Layout/LeadingCommentSpace: Missing space after #.
+end #class end
+    ^^^^^^^^^^
+lib/science_daily/scraper.rb:48:5: C: Style/CommentedKeyword: Do not place comments on the same line as the end keyword.
+end # class end
+    ^^^^^^^^^^^
+lib/science_daily/scraper.rb:48:15: C: [Corrected] Layout/TrailingBlankLines: Final newline missing.
+end #class end
+
+
+1 file inspected, 41 offenses detected, 31 offenses corrected
+[16:06:28]  science_daily (master)
+// ♥  rubocop -a lib/science_daily/article.rb
+Inspecting 1 file
+W
+
+Offenses:
+
+lib/science_daily/article.rb:1:1: C: [Corrected] Style/FrozenStringLiteralComment: Missing magic comment # frozen_string_literal: true.
+class ScienceDaily::Article
+^
+lib/science_daily/article.rb:2:1: C: [Corrected] Layout/EmptyLinesAroundClassBody: Extra empty line detected at class body beginning.
+lib/science_daily/article.rb:3:1: C: Style/Documentation: Missing top-level class documentation comment.
+class ScienceDaily::Article
+^^^^^
+lib/science_daily/article.rb:3:7: C: Style/ClassAndModuleChildren: Use nested module/class definitions instead
+of compact style.
+class ScienceDaily::Article
+      ^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:4:81: C: Metrics/LineLength: Line is too long. [85/80]
+  attr_accessor :list_updated, :subtitle, :source, :abstract, :date_posted, :full_url
+                                                                                ^^^^^
+lib/science_daily/article.rb:5:27: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+  attr_reader :title, :url
+                          ^
+lib/science_daily/article.rb:5:81: C: Metrics/LineLength: Line is too long. [88/80]
+  # for accessor vars, set default value in case the attrib doesn't exist, e.g. subtitle
+                                                                                ^^^^^^^^
+lib/science_daily/article.rb:7:3: C: Style/ClassVars: Replace class var @@all with a class instance var.
+  @@all = []
+  ^^^^^
+lib/science_daily/article.rb:9:1: C: [Corrected] Layout/CommentIndentation: Incorrect indentation detected (column 0 instead of 2).
+#   to create all 10 articles in Latest Headlines list, with title & url attributes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:10:40: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you
+don't need string interpolation or special symbols.
+  def initialize(title, url, updated = "unknown") # use first scrape data to instantiate
+                                       ^^^^^^^^^
+lib/science_daily/article.rb:10:81: C: Metrics/LineLength: Line is too long. [85/80]
+  #   to create all 10 articles in Latest Headlines list, with title & url attributes
+                                                                                ^^^^^
+lib/science_daily/article.rb:11:51: C: Style/CommentedKeyword: Do not place comments on the same line as the def keyword.
+  def initialize(title, url, updated = 'unknown') # use first scrape data to instantiate
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:11:81: C: Metrics/LineLength: Line is too long. [88/80]
+  def initialize(title, url, updated = 'unknown') # use first scrape data to instantiate
+                                                                                ^^^^^^^^
+lib/science_daily/article.rb:17:1: C: [Corrected] Layout/CommentIndentation: Incorrect indentation detected (column 0 instead of 2).
+# @@all articles
+^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:22:51: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+####  1ST LEVEL DATA METHODS - HEADLINES LIST ####
+                                                  ^^
+lib/science_daily/article.rb:23:1: C: [Corrected] Layout/CommentIndentation: Incorrect indentation detected (column 0 instead of 2).
+####  1ST LEVEL DATA METHODS - HEADLINES LIST ####
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:26:1: C: [Corrected] Layout/CommentIndentation: Incorrect indentation detected (column 0 instead of 2).
+#    to get latest headlines list
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:28:15: C: [Corrected] Style/RedundantSelf: Redundant self detected.
+    updated = self.get_update_time
+              ^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:30:32: C: [Corrected] Layout/ExtraSpacing: Unnecessary spacing detected.
+    articles.each do |headline|   # iterates list to make article objects
+                               ^^
+lib/science_daily/article.rb:31:28: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you
+don't need string interpolation or special symbols.
+      title = headline.css("a").text
+                           ^^^
+lib/science_daily/article.rb:31:37: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+      title = headline.css("a").text
+                                    ^
+lib/science_daily/article.rb:32:26: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you
+don't need string interpolation or special symbols.
+      url = headline.css("a").attr("href").value
+                         ^^^
+lib/science_daily/article.rb:32:36: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you
+don't need string interpolation or special symbols.
+      url = headline.css("a").attr("href").value
+                                   ^^^^^^
+lib/science_daily/article.rb:33:7: C: [Corrected] Style/RedundantSelf: Redundant self detected.
+      self.new(title, url, updated)  # assign @title, @url, @list_updated attributes
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:33:36: C: [Corrected] Layout/ExtraSpacing: Unnecessary spacing detected.
+      self.new(title, url, updated)  # assign @title, @url, @list_updated attributes
+                                   ^
+lib/science_daily/article.rb:39:1: C: [Corrected] Layout/CommentIndentation: Incorrect indentation detected (column 0 instead of 2).
+#   use & assign as attribute for all article objects
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:41:12: C: Naming/AccessorMethodName: Do not prefix reader method names with get_.
+  def self.get_update_time
+           ^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:44:1: C: [Corrected] Layout/CommentIndentation: Incorrect indentation detected (column 0 instead of 2).
+#### END 1ST SCRAPE DATA METHODS ####
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:45:1: C: [Corrected] Layout/CommentIndentation: Incorrect indentation detected (column 0 instead of 2).
+#### 2nd LEVEL DATA METHODS -- CHOSEN ARTICLE ####
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:48:7: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you don't need string interpolation or special symbols.
+    p "in Article.add_article_features"
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:51:5: W: Lint/UselessAssignment: Useless assignment to variable - article_features.
+    article_features = ScienceDaily::Scraper.scrape_article_features(chosen_article)
+    ^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:51:81: C: Metrics/LineLength: Line is too long. [84/80]
+    article_features = ScienceDaily::Scraper.scrape_article_features(chosen_article)
+                                                                                ^^^^
+lib/science_daily/article.rb:52:1: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+lib/science_daily/article.rb:56:5: C: [Corrected] Style/RedundantSelf: Redundant self detected.
+    self.all[article_index] # finds article by index in Article.all
+    ^^^^^^^^
+lib/science_daily/article.rb:60:3: C: Metrics/AbcSize: Assignment Branch Condition size for display_chosen_article is too high. [19.65/15]
+  def display_chosen_article ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:60:24: C: [Corrected] Style/RedundantSelf: Redundant self detected.
+    article_features = self.add_article_features
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:61:5: W: Lint/UselessAssignment: Useless assignment to variable - article_features.
+    article_features = add_article_features
+    ^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:61:35: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you
+don't need string interpolation or special symbols.
+    article.subtitle = scrape.css("h1#headline").text
+                                  ^^^^^^^^^^^^^
+lib/science_daily/article.rb:62:38: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you
+don't need string interpolation or special symbols.
+    article.date_posted = scrape.css("dd#date_posted").text
+                                     ^^^^^^^^^^^^^^^^
+lib/science_daily/article.rb:63:33: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you
+don't need string interpolation or special symbols.
+    article.source = scrape.css("dd#source").text
+                                ^^^^^^^^^^^
+lib/science_daily/article.rb:64:35: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you
+don't need string interpolation or special symbols.
+    article.abstract = scrape.css("dd#abstract").text
+                                  ^^^^^^^^^^^^^
+lib/science_daily/article.rb:67:1: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
+
+
+
+
+
+
+ keyword.
+end # class end
+    ^^^^^^^^^^^
+lib/science_daily/article.rb:68:15: C: [Corrected] Layout/TrailingBlankLines: Final newline missing.
+end #class end
+
+
+1 file inspected, 46 offenses detected, 32 offenses corrected

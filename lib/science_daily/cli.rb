@@ -4,23 +4,24 @@ class ScienceDaily::CLI
   
   def self.start
     start_doc # Welcome message heredoc
-    list_articles # Call methods to scrape, create article objects, display article headlines list
+    list_articles # call methods: scrape,create article objects, display objects' titles
     choose_or_exit_doc
     get_user_choice # returns: article number chosen OR goodbye message + exit  
-    find_chosen_article
-    ScienceDaily::Article.add_article_features # call Article.add_article_details
-    # display_chosen_article # call methods for 2nd scrape, chosen article's URL, add feature attributes, display details to user
-  
-      # hard code scrape call for testing - refactor to call local method or Article method
- 
-  end 
+    display_chosen_article # call methods for 2nd scrape, chosen article's URL, add feature attributes, display details to user
+    
+    #find_chosen_article
+    #   ?? Beth S: ADD OPTION s to choose another article and don't rescrape
+    
+ end 
 
+  ####  1ST LEVEL DATA METHODS - HEADLINES LIST ####
+  
   def self.list_articles
     ScienceDaily::Article.create_articles # 1st scrape, make article objects   
     # now iterate all article objects to display list for user
     ScienceDaily::Article.list_articles
   end
-
+  
   def self.get_user_choice
        p 'in CLI#get_user_choice method'
     input = gets.strip # gets User's article choice || exit
@@ -38,15 +39,14 @@ class ScienceDaily::CLI
     end
     @@choice = choice - 1 # set class var of article choice, as array index value
   end
+  
+  #### END 1ST LEVEL - list articles METHODS ####
 
   def self.use_choice
     @@choice
   end
 
-  def self.find_chosen_article
-    p "in CLI.find_chosen_article"
-    ScienceDaily::Article.all[self.use_choice] # finds article by index in Article.all
-  end
+  
 #  helper below didn't work, I set up process flow wrong.
 #  replace with new CLI finder method above
 # #choice_index -- Helper
@@ -86,14 +86,43 @@ class ScienceDaily::CLI
       CHOICE
   end
 
+  def self.display_chosen_article
+    article = ScienceDaily::Article.add_article_features
+    puts <<~ARTICLE
+
+          #{article.subtitle}     
+          
+          Source:       #{article.source}
+          Abstract:             
+          #{article.abstract}
+
+          Full article: #{article.full_url}
+ 
+
+    ARTICLE
+      
+  end
+
+  def self.cite_source_doc
+    puts <<~CITE
+      
+      Acknowledgment:
+      Content is sourced from https://sciencedaily.com
+      and complies with that site's permissions for use.
+      We ask that you also refer to and abide by Science Daily's terms of use.
+      https://www.sciencedaily.com/terms.htm
+
+      CITE
+  end
+
   def self.goodbye_doc
     puts <<~BYE
       
     **** Thank you! We hope you found something fascinating! ****
     
               Headlines are updated many times each day 
-              Please come again any time you need some 
-              Science FACTS instead of FAKE NEWS!
+              Please come again any time you want some 
+              science FACTS instead of FAKE NEWS!
     
     *************************************************************
 
