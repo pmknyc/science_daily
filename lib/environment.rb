@@ -8,10 +8,11 @@ module ScienceDaily
   
   class Error < StandardError
   end
+
     p "in environment.rb, in module ScienceDaily"
 end #module ScienceDaily end
 
-# require statements must be AFTER declaring module b/c
+# require files statements must be AFTER declaring module b/c
 # sdnews executable file calls methods using module
 # namespace
 #require_relative '../bin/sdnews'

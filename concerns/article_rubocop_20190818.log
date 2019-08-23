@@ -195,7 +195,7 @@ lib/science_daily/article.rb:26:1: C: [Corrected] Layout/CommentIndentation: Inc
 #    to get latest headlines list
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 lib/science_daily/article.rb:28:15: C: [Corrected] Style/RedundantSelf: Redundant self detected.
-    updated = self.get_update_time
+    updated = self.get_initial_update_time
               ^^^^^^^^^^^^^^^^^^^^
 lib/science_daily/article.rb:30:32: C: [Corrected] Layout/ExtraSpacing: Unnecessary spacing detected.
     articles.each do |headline|   # iterates list to make article objects
@@ -225,7 +225,7 @@ lib/science_daily/article.rb:39:1: C: [Corrected] Layout/CommentIndentation: Inc
 #   use & assign as attribute for all article objects
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 lib/science_daily/article.rb:41:12: C: Naming/AccessorMethodName: Do not prefix reader method names with get_.
-  def self.get_update_time
+  def self.get_initial_update_time
            ^^^^^^^^^^^^^^^
 lib/science_daily/article.rb:44:1: C: [Corrected] Layout/CommentIndentation: Incorrect indentation detected (column 0 instead of 2).
 #### END 1ST SCRAPE DATA METHODS ####

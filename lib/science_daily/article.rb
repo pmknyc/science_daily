@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 class ScienceDaily::Article
-  attr_accessor :list_updated, :subtitle, :source, :abstract, :date_posted, :full_url
-  # for accessor vars, set default value in case the attrib doesn't exist, e.g. subtitle
-  attr_reader :title, :url
+  
+  attr_accessor :list_updated, :subtitle, :source, :abstract, :date_posted
+  #  :full_url
+  # ?? for accessor vars, set default value in case the attrib doesn't exist, e.g. subtitle
+  attr_reader :title, :url  # protect these attrib as keys to identify article;
+                            # useful if/when add feature to see updates
   @@all = []
 
-  # the .create_articles method does first scrape and calls #initialize
-  #   to create all 10 articles in Latest Headlines list, with title & url attributes
-  def initialize(title, url, updated = 'unknown') # use first scrape data to instantiate
+  def initialize(title, url) # use first scrape data to instantiate
     @title = title
     @url = url
-    @list_updated = updated
     @@all << self
   end
 
@@ -23,17 +23,20 @@ class ScienceDaily::Article
   ####  1ST LEVEL DATA METHODS - HEADLINES LIST ####
 
   # .create_articles;  called from CLI
-  #    calls Scraper method that runs 1st scrape
-  #    to get latest headlines list
+  #    calls Scraper method for 1st scrape
+  #    Scraper method calls Article.new 
   def self.create_articles
-    updated = get_update_time # Helper method 
-    articles = ScienceDaily::Scraper.scrape_articles_list
-    articles.each do |headline| # iterates list to make article objects
-      title = headline.css('a').text
-      url = headline.css('a').attr('href').value
-      new(title, url, updated) # assign @title, @url, @list_updated attributes
-    end
+    ScienceDaily::Scraper.scrape_articles_list
   end
+
+  # .get_initial_update_time = list's update time at start of app
+  #  assign @list_updated as attribute to all articles
+  def self.get_initial_update_time
+    time = ScienceDaily::Scraper.scrape_list_updated_time
+    all.each {|article| article.list_updated = time if !article.list_updated}
+  end
+      # ?? when add option for user to check if any updates since starting
+      # the app, add a different "update time" method for that scenario
 
   def self.list_articles # called from CLI, lists headlines to console
     self.all.collect.with_index(1) do |a, i| 
@@ -45,13 +48,8 @@ class ScienceDaily::Article
     end
   end
 
-  # .get_update_time - Helper
-  #  uses scrape to get article list's current "update time"
-  #  called during .create_articles; 
-  def self.get_update_time
-    ScienceDaily::Scraper.scrape_list_updated_time
-  end
-  #     <?? get_update_time
+ 
+  #     <?? get_initial_update_time
   #       use later when add feature for user to "check for updates"
   #       use & assign as attribute for all article objects
   #       reason: allows articles to get new "update time"; this attrib
@@ -70,6 +68,7 @@ class ScienceDaily::Article
 
   def self.add_article_features
     p 'in Article.add_article_features'
+    # ?? if find_chosen_article
     ScienceDaily::Scraper.scrape_article_features(self.find_chosen_article)
   end
  

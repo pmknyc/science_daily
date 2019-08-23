@@ -7,10 +7,12 @@
    3. Requests and collects User choices 
       a. at start, ask user to choose article number to see more info OR exit app
       b. 'gets' user input 
-   Bonus: ?? show user Date+Time headline list was last updated (Add to scrape)
+   4. Displays detailed info on chosen article
+      a. Time headline list was last updated (Add to scrape)
+      b. article attributes:  :subtitle, :source, :abstract, :date_posted, :full_url
 
 # Scraper 
-1st scrape: Scrape Top Science page for article title and URL
+1st scrape: Scrape Top Science Latest Headlines page for article title and URL
 
 2nd scrape: 
 CLI:  User chooses article for more info
@@ -65,3 +67,12 @@ If user chooses article number:
    Prompt:
     "Thanks for using Science Daily News! Goodbye!" 
    If Y, then exit.  If N, then return to prior screem before user typed exit
+
+
+ # User chooses article for more info:
+  #  get input from CLI#get_user_choice
+  #  convert input to index of an article object in Article.all array
+  #  get that article's article.url attrib & interpolate it onto SITE URL
+  #     to define the scrape site
+  # an Article method that calls this scrape method to read features &
+  # assign as instance vars/attributes

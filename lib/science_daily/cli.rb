@@ -8,8 +8,7 @@ class ScienceDaily::CLI
     choose_or_exit_doc
     get_user_choice # returns: article number chosen OR goodbye message + exit  
     display_chosen_article # call methods for 2nd scrape, chosen article's URL, add feature attributes, display details to user
-    
-    #find_chosen_article
+    choose_another_doc # asks user if want to choose another article in same list
     #   ?? Beth S: ADD OPTION s to choose another article and don't rescrape
     
  end 
@@ -27,7 +26,7 @@ class ScienceDaily::CLI
     input = gets.strip # gets User's article choice || exit
     text_input = ['e', 'ex', 'ext','exit'].include?(input.downcase) # 'exit' app options allow typo errors
     digit_input = (1..10).include?(input.to_i) # number choices; 10 articles in "latest headlines" list
-    case
+    case        # no variable/value input to case
       when text_input
         goodbye_doc
         choice = exit
@@ -49,19 +48,14 @@ class ScienceDaily::CLI
   
 #  helper below didn't work, I set up process flow wrong.
 #  replace with new CLI finder method above
-# #choice_index -- Helper
-# call from Article class to help find chosen article in Article.all
 #  def self.choice_index
 #    article_index = get_user_choice - 1
 #  end
 
- def self.display_chosen_article
-              p "in CLI #display_chosen_article"
-    ScienceDaily::Article.display_chosen_article
-    # call Article method that uses Article internal methods to 
-    # find chosen article, initiate scrape for features data
-    # and assign features as the article's attributes
-    
+  def self.display_chosen_article
+    p "in CLI #display_chosen_article"
+    article = ScienceDaily::Article.add_article_features
+    display_article_doc(article)
   end
 
 # HEREDOCS SECTION: user interaction messages
@@ -71,7 +65,7 @@ class ScienceDaily::CLI
                     Welcome to Science Daily News
       
           Breaking news in science from around the world!
-             <<  Headlines Updated: #{ScienceDaily::Article.get_update_time}  >>
+             <<  Headlines Updated: #{ScienceDaily::Article.get_initial_update_time}  >>
 
     WELCOME
   end
@@ -86,22 +80,27 @@ class ScienceDaily::CLI
       CHOICE
   end
 
-  def self.display_chosen_article
-    article = ScienceDaily::Article.add_article_features
+  def self.display_article_doc(article)
+
     puts <<~ARTICLE
 
           #{article.subtitle}     
           
+          Posted:       #{article.date_posted}
           Source:       #{article.source}
           Abstract:             
           #{article.abstract}
 
-          Full article: #{article.full_url}
+          Full article: "#{ScienceDaily::Scraper.site}#{article.url}"        
  
-
     ARTICLE
-      
   end
+
+  def self.choose_another_doc
+
+  end
+
+
 
   def self.cite_source_doc
     puts <<~CITE
