@@ -1,6 +1,8 @@
 class ScienceDaily::CLI
 
-  attr_accessor :choice
+  attr_accessor :choice, :choices
+
+  @@choices = []
   
   def self.start
     start_doc # Welcome message heredoc
@@ -8,7 +10,8 @@ class ScienceDaily::CLI
     choose_or_exit_doc
     get_user_choice # returns: article number chosen OR goodbye message + exit  
     display_chosen_article # call methods for 2nd scrape, chosen article's URL, add feature attributes, display details to user
-    choose_another_doc # asks user if want to choose another article in same list
+    #choose_another_doc # asks user if want to choose another article in same list
+
     #   ?? Beth S: ADD OPTION s to choose another article and don't rescrape
     
  end 
@@ -36,9 +39,13 @@ class ScienceDaily::CLI
         puts "I don't understand that. Please try again."
         get_user_choice # recurse until valid user choice
     end
-    @@choice = choice - 1 # set class var of article choice, as array index value
+    @@choices << (@@choice = choice - 1) # set class var of article choice, as array index value
   end
   
+  def self.choices  # array, all article choices in order made by user 
+    @@choices       # choices to 'exit' omitted from @@choices
+  end
+
   #### END 1ST LEVEL - list articles METHODS ####
 
   def self.use_choice
@@ -91,7 +98,7 @@ class ScienceDaily::CLI
           Abstract:             
           #{article.abstract}
 
-          Full article: "#{ScienceDaily::Scraper.site}#{article.url}"        
+          Full article: "#{ScienceDaily.site}#{article.url}"        
  
     ARTICLE
   end
