@@ -9,7 +9,9 @@ class ScienceDaily::CLI
     list_articles # call methods: scrape,create article objects, display objects' titles
     choose_or_exit_doc
     get_user_choice # returns: article number chosen OR goodbye message + exit  
-    display_chosen_article # call methods for 2nd scrape, chosen article's URL, add feature attributes, display details to user
+    display_article # call methods for 2nd scrape, chosen article's URL, add feature attributes, display details to user
+    cite_source_doc
+    
     #choose_another_doc # asks user if want to choose another article in same list
 
     #   ?? Beth S: ADD OPTION s to choose another article and don't rescrape
@@ -59,12 +61,25 @@ class ScienceDaily::CLI
 #    article_index = get_user_choice - 1
 #  end
 
-  def self.display_chosen_article
+  def self.display_article
     p "in CLI #display_chosen_article"
     article = ScienceDaily::Article.add_article_features
-    display_article_doc(article)
+    puts <<~ARTICLE
+
+          #{article.subtitle}     
+          
+          Posted:       #{article.date_posted}
+          Source:       #{article.source}
+          Abstract:             
+          #{article.abstract}
+
+          Full article: "#{ScienceDaily.site}#{article.url}"
+ 
+    ARTICLE
   end
 
+  
+  
 # HEREDOCS SECTION: user interaction messages
   def self.start_doc
     puts <<~WELCOME
@@ -87,28 +102,10 @@ class ScienceDaily::CLI
       CHOICE
   end
 
-  def self.display_article_doc(article)
-
-    puts <<~ARTICLE
-
-          #{article.subtitle}     
-          
-          Posted:       #{article.date_posted}
-          Source:       #{article.source}
-          Abstract:             
-          #{article.abstract}
-
-          Full article: "#{ScienceDaily.site}#{article.url}"        
- 
-    ARTICLE
-  end
-
   def self.choose_another_doc
 
   end
-
-
-
+      
   def self.cite_source_doc
     puts <<~CITE
       
