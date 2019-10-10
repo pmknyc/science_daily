@@ -33,11 +33,11 @@ lib/science_daily/scraper.rb:4:10: C: [Corrected] Style/RedundantFreeze: Do not 
   SITE = 'https://www.sciencedaily.com'.freeze
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 lib/science_daily/scraper.rb:4:15: C: [Corrected] Style/MutableConstant: Freeze mutable objects assigned to constants.
-  LIST_PAGE = "#{SITE}/news/top/science/"
+  TOPSCI_PAGE = "#{SITE}/news/top/science/"
               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 lib/science_daily/scraper.rb:5:1: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
 lib/science_daily/scraper.rb:5:15: C: [Corrected] Style/RedundantFreeze: Do not freeze immutable objects, as freezing them has no effect.
-  LIST_PAGE = "#{SITE}/news/top/science/".freeze
+  TOPSCI_PAGE = "#{SITE}/news/top/science/".freeze
               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 lib/science_daily/scraper.rb:6:40: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
   # use all Class methods b/c only want
@@ -52,7 +52,7 @@ lib/science_daily/scraper.rb:15:37: C: Style/CommentedKeyword: Do not place comm
   def self.scrape_list_updated_time # update time for 10 Latest Headlines"
                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 lib/science_daily/scraper.rb:16:29: C: Security/Open: The use of Kernel#open is a serious security risk.
-    scrape = Nokogiri::HTML(open(LIST_PAGE))
+    scrape = Nokogiri::HTML(open(TOPSCI_PAGE))
                             ^^^^
 lib/science_daily/scraper.rb:16:30: C: [Corrected] Style/StringLiterals: Prefer single-quoted strings when you
 don't need string interpolation or special symbols.
@@ -82,7 +82,7 @@ don't need string interpolation or special symbols.
     articles = scrape.css("ul#featured_shorts li")
                           ^^^^^^^^^^^^^^^^^^^^^^^
 lib/science_daily/scraper.rb:26:29: C: Security/Open: The use of Kernel#open is a serious security risk.
-    scrape = Nokogiri::HTML(open(LIST_PAGE))
+    scrape = Nokogiri::HTML(open(TOPSCI_PAGE))
                             ^^^^
 lib/science_daily/scraper.rb:26:51: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
     articles = scrape.css("ul#featured_shorts li")
@@ -91,7 +91,7 @@ lib/science_daily/scraper.rb:27:5: W: Lint/UselessAssignment: Useless assignment
     articles = scrape.css('ul#featured_shorts li')
     ^^^^^^^^
 lib/science_daily/scraper.rb:30:38: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
-#  get input from CLI#get_user_choice
+#  get input from CLI#create_user_choice
                                      ^
 lib/science_daily/scraper.rb:33:32: C: [Corrected] Layout/TrailingWhitespace: Trailing whitespace detected.
 #     to define the scrape site
@@ -195,7 +195,7 @@ lib/science_daily/article.rb:26:1: C: [Corrected] Layout/CommentIndentation: Inc
 #    to get latest headlines list
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 lib/science_daily/article.rb:28:15: C: [Corrected] Style/RedundantSelf: Redundant self detected.
-    updated = self.get_initial_update_time
+    updated = self.initial_update_time
               ^^^^^^^^^^^^^^^^^^^^
 lib/science_daily/article.rb:30:32: C: [Corrected] Layout/ExtraSpacing: Unnecessary spacing detected.
     articles.each do |headline|   # iterates list to make article objects
@@ -225,7 +225,7 @@ lib/science_daily/article.rb:39:1: C: [Corrected] Layout/CommentIndentation: Inc
 #   use & assign as attribute for all article objects
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 lib/science_daily/article.rb:41:12: C: Naming/AccessorMethodName: Do not prefix reader method names with get_.
-  def self.get_initial_update_time
+  def self.initial_update_time
            ^^^^^^^^^^^^^^^
 lib/science_daily/article.rb:44:1: C: [Corrected] Layout/CommentIndentation: Incorrect indentation detected (column 0 instead of 2).
 #### END 1ST SCRAPE DATA METHODS ####

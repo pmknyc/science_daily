@@ -1,8 +1,8 @@
+p 'In environment.rb: read REQUIRE options'
 require 'nokogiri'
 require 'open-uri'
 require 'pry'
-
-p 'In environment.rb: read REQUIRE options'
+require 'colorize'
 
 module ScienceDaily
 
@@ -15,10 +15,10 @@ module ScienceDaily
     SITE
   end
 
-  LIST_PAGE = "#{ScienceDaily.site}/news/top/science/"
+  TOPSCI_PAGE = "#{ScienceDaily.site}/news/top/science/"
 
-  def self.list_page
-    LIST_PAGE
+  def self.topsci_page
+    TOPSCI_PAGE
   end
 
   p "in environment.rb, end of module ScienceDaily"

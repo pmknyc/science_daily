@@ -29,13 +29,19 @@ class ScienceDaily::Article
     ScienceDaily::Scraper.scrape_articles_list
   end
 
-  # .get_initial_update_time = list's update time at start of app
+  # .initial_update_time = list's update time at start of app
   #  assign @list_updated as attribute to all articles
-  def self.get_initial_update_time
+  def self.initial_update_time
     time = ScienceDaily::Scraper.scrape_list_updated_time
     all.each {|article| article.list_updated = time if !article.list_updated}
+    time
   end
-      # ?? when add option for user to check if any updates since starting
+      #  #     <?? initial_update_time
+  #       use later when add feature for user to "check for updates"
+  #       use & assign as attribute for all article objects
+  #       reason: allows articles to get new "update time"; this attrib
+  #       will reveal which articles most recently updated
+  #      ?? when add option for user to check if any updates since starting
       # the app, add a different "update time" method for that scenario
 
   def self.list_articles # called from CLI, lists headlines to console
@@ -48,14 +54,6 @@ class ScienceDaily::Article
     end
   end
 
- 
-  #     <?? get_initial_update_time
-  #       use later when add feature for user to "check for updates"
-  #       use & assign as attribute for all article objects
-  #       reason: allows articles to get new "update time"; this attrib
-  #       will reveal which articles most recently updated
-  #     ??>
-
   #### END 1ST SCRAPE DATA METHODS ####
 
 
@@ -63,7 +61,7 @@ class ScienceDaily::Article
 
   def self.find_chosen_article
     p "in Article.find_chosen_article"
-    all[ScienceDaily::CLI.use_choice] # finds article by index in Article.all
+    all[ScienceDaily::CLI.user_choice] # finds article by index in Article.all
   end
 
   def self.add_article_features

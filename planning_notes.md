@@ -70,7 +70,7 @@ If user chooses article number:
 
 
  # User chooses article for more info:
-  #  get input from CLI#get_user_choice
+  #  get input from CLI#create_user_choice
   #  convert input to index of an article object in Article.all array
   #  get that article's article.url attrib & interpolate it onto SITE URL
   #     to define the scrape site
