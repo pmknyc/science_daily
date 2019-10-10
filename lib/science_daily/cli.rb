@@ -2,8 +2,8 @@ class ScienceDaily::CLI
 
   attr_accessor :choice, :current_choices
 
-  # @@choices = []
-  # @@current_choice = []
+  @@choices = []
+  @@current_choice = []
   
   
   def self.start
@@ -57,10 +57,9 @@ class ScienceDaily::CLI
         create_user_choice # recurse until valid user choice
     end
       @@current_choice = choice # set class var of article choice
+      binding.pry
   end
   
-  # ?? TODO method to push choices history into array 
-  # @@choices << (@@current_choice = choice - 1) 
   #     so we can track user choices and call prior articles if already defined
   def self.choices  # array, all article choices in order made by user 
     @@choices       # choices to 'exit' omitted from @@current_choices
