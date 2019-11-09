@@ -2,13 +2,18 @@
 
 ## Startup - 
 # CLI     Display user messages
-   1. Welcome to app
-   2. Brief description of app
-   3. Requests and collects User choices 
-      a. at start, ask user to choose article number to see more info OR exit app
-      b. 'gets' user input 
-   4. Displays detailed info on chosen article
-      a. Time headline list was last updated (Add to scrape)
+   *  Welcome to app
+   *  Brief description of app
+   *  Show "update time" of headlines list.
+   *  Request and collect User choices 
+   *  Choice 1: see articles list in Date or Alphabetical order?
+      * display list of 10 headlines in order chosen
+   *  Choice 2:   headline number to see more info on article OR
+                  choose to Exit app.
+   *  'gets' user choice as input
+      *  If Exit choice: display "goodbye" doc and ScienceDaily.com acknowledgment
+      *  If Headline Number choice: Display detailed info on chosen article
+      
       b. article attributes:  :subtitle, :source, :abstract, :date_posted, :full_url
 
 # Scraper 
@@ -26,7 +31,7 @@ Nokogiri opens page using article's URL
 
 
 # CLI
-Display numbered list of Latest Headlines - article titles
+Displays numbered list of Latest Headlines - article titles
 Order as loaded in scrape (NOT date ordered on SD site)
 * Bonus:  ?? user option to order headline list in alpha by title or date order newest 1st. (may require inner page scrape to do this, not within project requirements)
 

@@ -4,8 +4,7 @@ class ScienceDaily::CLI
 
   @@choices = []
   @@current_choice = []
-  
-  
+    
   def self.start
   p "in CLI.start method"
     create_articles
@@ -16,12 +15,15 @@ class ScienceDaily::CLI
     create_user_choice # returns: article number chosen OR goodbye message + exit  
     display_article # call methods for 2nd scrape, chosen article's URL, add feature attributes, display details to user
     cite_source_doc
-    # choose_again_doc
+    choose_again_doc #ask user if want to see list again
+    #list_articles
+
 
     
-    #choose_again_doc # asks user if want to choose another article in same list
-    
- end 
+	end 
+
+	#self.ending_session
+	#end
 
   ####  1ST LEVEL DATA METHODS - HEADLINES LIST ####
   
@@ -35,7 +37,7 @@ class ScienceDaily::CLI
   end
 
   def self.list_articles
-  p "in CLI.list_articles method"
+  	p "in CLI.list_articles method"
     # now iterate all article objects to display list for user
     ScienceDaily::Article.list_articles
   end
@@ -60,27 +62,31 @@ class ScienceDaily::CLI
       binding.pry
   end
   
-  #     so we can track user choices and call prior articles if already defined
+  # we can track user choices and call prior articles if already defined
   def self.choices  # array, all article choices in order made by user 
-    @@choices       # choices to 'exit' omitted from @@current_choices
+    @@choices       # choices to 'exit' omitted from @@choices
   end
 
   def self.user_choice
-    @@current_choice
+    @@current_choice # choice to 'exit' omitted from this array
   end
 
 
   #### END 1ST LEVEL - list articles METHODS ####
   
 # HEREDOCS SECTION: user interaction messages
-  # ?? TODO: how to make Headlines Updated line INDENT! it's flush left
+  # ?? TODO: 1. using HEREDOC with tick marks <<-'HEREDOC' - how that helps with alignment
+  #             make Headlines Updated line INDENT! it's flush left
+  #          2. how to CLEAR console screen then display doc?
   def self.start_doc
-    puts <<~WELCOME
+    # ?? Do a clear console - Ruby command?
+
+    puts <<-'WELCOME'
 
                     Welcome to Science Daily News
-      
-          Breaking news in science from around the world!
-             <<  Headlines Updated: #{ScienceDaily::Article.initial_update_time}  >>
+
+             Breaking news in science from around the world!
+                     Headlines Updated: #{ScienceDaily::Article.initial_update_time}
 
     WELCOME
   end
@@ -114,7 +120,14 @@ class ScienceDaily::CLI
   end
 
   def self.choose_again_doc
-
+    puts <<~ANOTHER
+      
+    Fascinating things going on in science, right?!
+      
+      If you want to see more, press the letter "L"
+      To exit the application, enter "e" or "exit".
+ 
+    ANOTHER
   end
       
   def self.cite_source_doc
@@ -123,7 +136,7 @@ class ScienceDaily::CLI
       Acknowledgment:
       Content is sourced from https://sciencedaily.com
       and complies with that site's permissions for use.
-      We ask you also to abide by Science Daily's terms of use.
+      We ask you also to abide by Science Daily's terms of use, found here:
       https://www.sciencedaily.com/terms.htm
 
       CITE
@@ -135,8 +148,8 @@ class ScienceDaily::CLI
     **** Thank you! We hope you found something fascinating! ****
     
               Headlines are updated many times each day 
-              Please come again any time you want some 
-              science FACTS instead of FAKE NEWS!
+                Please come again to see the latest 
+                science FACTS instead of FAKE NEWS!
     
     *************************************************************
 

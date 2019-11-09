@@ -2,6 +2,7 @@ source "https://rubygems.org"
 # If publishing gem, specify your gem's dependencies in science_daily.gemspec
 # gemspec
 
+gem 'bundler', '>= 1.17.2'
 gem 'nokogiri', '>= 1.10.4'
 gem 'pry'
 gem 'require_relative'
