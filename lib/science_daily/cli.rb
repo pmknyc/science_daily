@@ -3,23 +3,22 @@ class ScienceDaily::CLI
   attr_accessor :choice, :current_choices
 
   @@choices = []
-  @@current_choice = []
-    
+	@@current_choice = -1
+	    
   def self.start
   p "in CLI.start method"
-    create_articles
-    start_doc # Welcome message heredoc
-    initial_update_time
+		create_articles
+		initial_update_time
+    start_doc # Welcome message
     list_articles # call methods: scrape,create article objects, display objects' titles
-    choose_or_exit_doc
-    create_user_choice # returns: article number chosen OR goodbye message + exit  
-    display_article # call methods for 2nd scrape, chosen article's URL, add feature attributes, display details to user
+		choose_or_exit_doc
+	  user_chooses # list headlines, article number or exit  
+    display_article # calls Article.add_article_features
     cite_source_doc
-    choose_again_doc #ask user if want to see list again
-    #list_articles
-
-
-    
+		choose_again_doc #ask user if want to see list again
+		user_chooses
+		
+   
 	end 
 
 	#self.ending_session
@@ -42,32 +41,34 @@ class ScienceDaily::CLI
     ScienceDaily::Article.list_articles
   end
   
-  def self.create_user_choice
-       p 'in CLI#create_user_choice method'
-    input = gets.strip # gets User's article choice || exit
-    text_input = ['e', 'ex', 'ext','exit'].include?(input.downcase) # 'exit' app options allow typo errors
-    digit_input = (1..10).include?(input.to_i) # number choices; 10 articles in "latest headlines" list
-    case        # no variable/value input to case
-      when text_input
+  def self.user_chooses
+       p 'in CLI#user_chooses method'
+    input = gets.strip 
+		list = input.downcase == 'l'
+		goodbye = ['e', 'ex', 'ext','exit'].include?(input.downcase) 
+    number = (1..10).include?(input.to_i) #always 10 articles in "latest headlines"
+		case        # no variable/value input to case
+			when list
+				choice = list_articles
+      when goodbye
         goodbye_doc
         choice = exit
-      when digit_input 
+      when number 
         choice = input.to_i - 1
-          @@choices << choice
+        @@choices << choice
       else
         puts "I don't understand that. Please try again."
-        create_user_choice # recurse until valid user choice
+        user_chooses # recurse until valid choice
     end
-      @@current_choice = choice # set class var of article choice
-      binding.pry
+			@@current_choice = choice # set class var of article choice
+			@@current_choice
   end
   
-  # we can track user choices and call prior articles if already defined
-  def self.choices  # array, all article choices in order made by user 
-    @@choices       # choices to 'exit' omitted from @@choices
+  def self.choices # tracks user article choices
+    @@choices  # array of article choices
   end
 
-  def self.user_choice
+  def self.current_choice
     @@current_choice # choice to 'exit' omitted from this array
   end
 
@@ -102,7 +103,8 @@ class ScienceDaily::CLI
   end
 
   def self.display_article
-    p "in CLI #display_article"
+		p "in CLI #display_article"
+		if 
     article = ScienceDaily::Article.add_article_features
     puts <<~ARTICLE
 
@@ -122,10 +124,10 @@ class ScienceDaily::CLI
   def self.choose_again_doc
     puts <<~ANOTHER
       
-    Fascinating things going on in science, right?!
+    Hey, scientists figure out cool stuff!
       
-      If you want to see more, press the letter "L"
-      To exit the application, enter "e" or "exit".
+      Want to see more? Enter the letter "l"
+      Ready to exit the app? Enter "e" or "exit"
  
     ANOTHER
   end
@@ -147,12 +149,13 @@ class ScienceDaily::CLI
       
     **** Thank you! We hope you found something fascinating! ****
     
-              Headlines are updated many times each day 
+              Headlines are updated many times a day 
                 Please come again to see the latest 
                 science FACTS instead of FAKE NEWS!
     
     *************************************************************
 
-    BYE
+		BYE
+		sleep(5)
   end
 end # class CLI end

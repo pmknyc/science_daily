@@ -4,11 +4,8 @@ class ScienceDaily::Scraper
 
 #  SITE = 'https://www.sciencedaily.com'
 #  TOPSCI_PAGE = "#{SITE}/news/top/science/"
-#
 
-  # .scrape_articles_list: gets list of articles
-  #   from Latest News section of Top Science page
-  def self.scrape_articles_list
+  def self.scrape_articles_list #from Latest News section of Top Science page
     p 'Scraper: begin .scrape_articles_list'
     scrape =  Nokogiri::HTML(open(ScienceDaily.topsci_page))
     articles = scrape.css('ul#featured_shorts li')

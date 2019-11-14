@@ -3,11 +3,10 @@
 class ScienceDaily::Article
   
   attr_accessor :list_updated, :subtitle, :source, :abstract, :date_posted
-  #  :full_url
-  # ?? for accessor vars, set default value in case the attrib doesn't exist, e.g. subtitle
-  attr_reader :title, :url  # protect these attrib as keys to identify article;
-                            # useful if/when add feature to see updates
+  attr_reader :title, :url  # protect as ID keys for article
+ 
   @@all = []
+  @@updates = [] #track articles update times
 
   def initialize(title, url) # use first scrape data to instantiate
     @title = title
@@ -20,21 +19,32 @@ class ScienceDaily::Article
     @@all
   end
 
+  def self.updates
+    @@updates
+  end
+
   ####  1ST LEVEL DATA METHODS - HEADLINES LIST ####
 
   # .create_articles;  called from CLI
   #    calls Scraper method for 1st scrape
   #    Scraper method calls Article.new 
   def self.create_articles
-    ScienceDaily::Scraper.scrape_articles_list
+    ScienceDaily::Scraper.scrape_articles_list # initializes objects
+    all.each do |article| 
+      if !article.list_updated
+        article.list_updated = ScienceDaily::Scraper.scrape_list_updated_time 
+      end
+    end
   end
 
   # .initial_update_time = list's update time at start of app
   #  assign @list_updated as attribute to all articles
   def self.initial_update_time
     time = ScienceDaily::Scraper.scrape_list_updated_time
-    all.each {|article| article.list_updated = time if !article.list_updated}
-    time
+    if @@updates.size == 0 # ?? see if this works to track all times
+      @@updates << time 
+    end 
+    @@updates.first
   end
       #  #     <?? initial_update_time
   #       use later when add feature for user to "check for updates"
@@ -45,7 +55,8 @@ class ScienceDaily::Article
       # the app, add a different "update time" method for that scenario
 
   def self.list_articles # called from CLI, lists headlines to console
-    self.all.collect.with_index(1) do |a, i| 
+    self.all.each.with_index(1) do |a, i|
+      print "  " 
       unless i > 9
         puts " #{i}. #{a.title}"
       else 
@@ -61,7 +72,7 @@ class ScienceDaily::Article
 
   def self.find_chosen_article
     p "in Article.find_chosen_article"
-    all[ScienceDaily::CLI.user_choice] # finds article by index in Article.all
+    all[ScienceDaily::CLI.current_choice] # finds article by index in Article.all
   end
 
   def self.add_article_features
