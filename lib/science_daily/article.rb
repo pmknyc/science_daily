@@ -2,7 +2,7 @@
 
 class ScienceDaily::Article
   
-  attr_accessor :list_updated, :subtitle, :source, :abstract, :date_posted
+  attr_accessor :list_updated, :subtitle, :source, :abstract, :date_posted, :full_url
   attr_reader :title, :url  # protect as ID keys for article
  
   @@all = []
@@ -43,9 +43,10 @@ class ScienceDaily::Article
     time = ScienceDaily::Scraper.scrape_list_updated_time
     if @@updates.size == 0 # ?? see if this works to track all times
       @@updates << time 
-    end 
-    @@updates.first
+      @@updates.first
+    end
   end
+  
       #  #     <?? initial_update_time
   #       use later when add feature for user to "check for updates"
   #       use & assign as attribute for all article objects
@@ -70,15 +71,18 @@ class ScienceDaily::Article
 
   #### 2nd LEVEL DATA METHODS -- CHOSEN ARTICLE ####
 
-  def self.find_chosen_article
-    p "in Article.find_chosen_article"
+  def self.chosen_article
+    p "in Article.chosen_article"
     all[ScienceDaily::CLI.current_choice] # finds article by index in Article.all
   end
 
   def self.add_article_features
     p 'in Article.add_article_features'
-    # ?? if find_chosen_article
-    ScienceDaily::Scraper.scrape_article_features(self.find_chosen_article)
+    if !chosen_article.subtitle # already created
+      ScienceDaily::Scraper.scrape_article_features(self.chosen_article)
+    else
+      chosen_article
+    end
   end
  
 end # class end

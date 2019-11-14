@@ -21,8 +21,8 @@ class ScienceDaily::CLI
    
 	end 
 
-	#self.ending_session
-	#end
+			#self.session_over
+			#end
 
   ####  1ST LEVEL DATA METHODS - HEADLINES LIST ####
   
@@ -31,8 +31,8 @@ class ScienceDaily::CLI
     ScienceDaily::Article.create_articles # 1st scrape, make article objects   
   end
 
-  def self.initial_update_time
-    ScienceDaily::Article.initial_update_time
+  def self.list_update_time
+    ScienceDaily::Article.list_update_time
   end
 
   def self.list_articles
@@ -61,7 +61,7 @@ class ScienceDaily::CLI
         user_chooses # recurse until valid choice
     end
 			@@current_choice = choice # set class var of article choice
-			@@current_choice
+			#@@current_choice
   end
   
   def self.choices # tracks user article choices
@@ -104,8 +104,7 @@ class ScienceDaily::CLI
 
   def self.display_article
 		p "in CLI #display_article"
-		if 
-    article = ScienceDaily::Article.add_article_features
+	  article = ScienceDaily::Article.add_article_features
     puts <<~ARTICLE
 
           #{article.subtitle}     
@@ -126,7 +125,7 @@ class ScienceDaily::CLI
       
     Hey, scientists figure out cool stuff!
       
-      Want to see more? Enter the letter "l"
+      Want to see another article? Enter letter "l"
       Ready to exit the app? Enter "e" or "exit"
  
     ANOTHER
