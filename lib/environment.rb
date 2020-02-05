@@ -3,24 +3,25 @@ require 'nokogiri'
 require 'open-uri'
 require 'pry'
 require 'colorize'
+require 'solargraph'
 
 module ScienceDaily
 
   class Error < StandardError
+
   end
 
-  SITE = 'https://www.sciencedaily.com'
-  
-  def self.site
-    SITE
-  end
-
-  TOPSCI_PAGE = "#{ScienceDaily.site}/news/top/science/"
-
-  def self.topsci_page
-    TOPSCI_PAGE
-  end
-
+  #SITE = 'https://www.sciencedaily.com'
+  #
+  #def self.site
+  #  SITE
+  #end
+#
+  #TOPSCI_PAGE = "#{ScienceDaily.site}/news/top/science/"
+#
+  #def self.topsci_page
+  #  TOPSCI_PAGE
+  #end
   p "in environment.rb, end of module ScienceDaily"
 end #module ScienceDaily end
 

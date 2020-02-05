@@ -3,18 +3,18 @@
 class ScienceDaily::Article
   
   attr_accessor :list_updated, :subtitle, :source, :abstract, :date_posted, :full_url
-  attr_reader :title, :url  # protect as ID keys for article
+  attr_reader :title, :url 
  
   @@all = []
   @@updates = [] #track articles update times
+  @list_updated = []
 
   def initialize(title, url) # use first scrape data to instantiate
     @title = title
     @url = url
-    @@all << self
+    @@all << self if @@all.none?(self)
   end
 
-  # @@all articles
   def self.all
     @@all
   end
@@ -25,45 +25,47 @@ class ScienceDaily::Article
 
   ####  1ST LEVEL DATA METHODS - HEADLINES LIST ####
 
-  # .create_articles;  called from CLI
-  #    calls Scraper method for 1st scrape
-  #    Scraper method calls Article.new 
+  # TO DO: fix update times methods; separate methods for 
+  #       first time Topsci page updated when session started,
+  #       and a time_updater method to add new update times to @@updates
+       
+  # .create_articles
+  #   called from CLI; Scraper method calls Article.new 
   def self.create_articles
-    ScienceDaily::Scraper.scrape_articles_list # initializes objects
-    all.each do |article| 
-      if !article.list_updated
-        article.list_updated = ScienceDaily::Scraper.scrape_list_updated_time 
-      end
-    end
+    ScienceDaily::Scraper.articles_list #initializes objects
+  end  
+
+  def self.topsci_headlines_latest_update #most recent time (string) list was updated
+    update_time = ScienceDaily::Scraper.topsci_headlines_update
+    @@updates << update_time if @@updates.none?(update_time) #prevent repeated times in array
   end
 
-  # .initial_update_time = list's update time at start of app
-  #  assign @list_updated as attribute to all articles
-  def self.initial_update_time
-    time = ScienceDaily::Scraper.scrape_list_updated_time
-    if @@updates.size == 0 # ?? see if this works to track all times
-      @@updates << time 
-      @@updates.first
+  def self.add_list_updated #time list updated becomes article attribute
+    update = topsci_headlines_latest_update
+    self.all.each do |article| 
+      article.list_updated << update if article.list_updated.none?(update)
     end
   end
-  
-      #  #     <?? initial_update_time
+    
+  #  #    ?? topsci_list_update_time
   #       use later when add feature for user to "check for updates"
   #       use & assign as attribute for all article objects
   #       reason: allows articles to get new "update time"; this attrib
   #       will reveal which articles most recently updated
   #      ?? when add option for user to check if any updates since starting
-      # the app, add a different "update time" method for that scenario
+  # the app, add a different "update time" method for that scenario
 
   def self.list_articles # called from CLI, lists headlines to console
+    puts "\nHeadlines Updated: #{self.updates.last} \n\n"
     self.all.each.with_index(1) do |a, i|
-      print "  " 
       unless i > 9
         puts " #{i}. #{a.title}"
       else 
         puts "#{i}. #{a.title}"
       end
     end
+    puts "\n"
+    ScienceDaily::CLI.choose_or_exit_doc
   end
 
   #### END 1ST SCRAPE DATA METHODS ####
@@ -79,7 +81,7 @@ class ScienceDaily::Article
   def self.add_article_features
     p 'in Article.add_article_features'
     if !chosen_article.subtitle # already created
-      ScienceDaily::Scraper.scrape_article_features(self.chosen_article)
+      ScienceDaily::Scraper.article_features(self.chosen_article)
     else
       chosen_article
     end

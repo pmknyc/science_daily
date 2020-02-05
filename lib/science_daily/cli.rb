@@ -7,69 +7,77 @@ class ScienceDaily::CLI
 	    
   def self.start
   p "in CLI.start method"
-		create_articles
-		initial_update_time
+    create_articles
+    list_update_time
     start_doc # Welcome message
     list_articles # call methods: scrape,create article objects, display objects' titles
-		choose_or_exit_doc
-	  user_chooses # list headlines, article number or exit  
-    display_article # calls Article.add_article_features
-    cite_source_doc
-		choose_again_doc #ask user if want to see list again
-		user_chooses
-		
-   
+		#choose_or_exit_doc
+	  #main_app_loop # list headlines, article number or exit  
+    #goodbye_doc
+    #cite_source_doc
+		##choose_again_doc #ask user if want to see list again
+		main_app_loop
 	end 
 
-			#self.session_over
-			#end
+  def self.main_app_loop
+    p 'in CLI#main_app_loop method'
+    input = gets.strip
+    goodbye = "e".eql?(input.downcase)
+    list = "l".eql?(input.downcase)
+    digit = (1..10).include?(input.to_i) 
+    
+    until goodbye 
+
+      case        # no variable/value input to case
+        when list
+          system "clear"
+		  		choice = list_articles
+        when goodbye
+          goodbye_doc
+          choice = exit
+        when digit 
+          choice = input.to_i - 1
+          @@choices << choice
+          @@current_choice = choice #
+          system "clear"
+          display_article # calls Article.add_article_features
+        else
+          puts "I don't understand that. Please try again."
+          main_app_loop # recurse until valid choice
+      end
+    end
+  end
+
+# 2/5/20: temp method while troubleshooting endless loop problem
+  def self.stop
+    exit
+  end
 
   ####  1ST LEVEL DATA METHODS - HEADLINES LIST ####
-  
+    
   def self.create_articles
   p "in CLI.create_articles method"
     ScienceDaily::Article.create_articles # 1st scrape, make article objects   
   end
 
   def self.list_update_time
-    ScienceDaily::Article.list_update_time
+    ScienceDaily::Article.topsci_headlines_latest_update
   end
 
   def self.list_articles
   	p "in CLI.list_articles method"
     # now iterate all article objects to display list for user
     ScienceDaily::Article.list_articles
+    
   end
   
-  def self.user_chooses
-       p 'in CLI#user_chooses method'
-    input = gets.strip 
-		list = input.downcase == 'l'
-		goodbye = ['e', 'ex', 'ext','exit'].include?(input.downcase) 
-    number = (1..10).include?(input.to_i) #always 10 articles in "latest headlines"
-		case        # no variable/value input to case
-			when list
-				choice = list_articles
-      when goodbye
-        goodbye_doc
-        choice = exit
-      when number 
-        choice = input.to_i - 1
-        @@choices << choice
-      else
-        puts "I don't understand that. Please try again."
-        user_chooses # recurse until valid choice
-    end
-			@@current_choice = choice # set class var of article choice
-			#@@current_choice
-  end
   
-  def self.choices # tracks user article choices
-    @@choices  # array of article choices
+  def self.choices
+    @@choices # keeps history of all article choices
   end
 
   def self.current_choice
-    @@current_choice # choice to 'exit' omitted from this array
+    @@current_choice
   end
 
 
@@ -81,54 +89,63 @@ class ScienceDaily::CLI
   #          2. how to CLEAR console screen then display doc?
   def self.start_doc
     # ?? Do a clear console - Ruby command?
+    system "clear"
+      puts <<-'WELCOME'
 
-    puts <<-'WELCOME'
+                      Welcome to Science Daily News
 
-                    Welcome to Science Daily News
+               Breaking news in science from around the world!
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-             Breaking news in science from around the world!
-                     Headlines Updated: #{ScienceDaily::Article.initial_update_time}
-
-    WELCOME
+      WELCOME
+   # ?? Add "type L for list" feature when figure out main loop problem
+   #  Type the letter "L" for a list of the latest, top science headlines.
   end
       
   def self.choose_or_exit_doc
-    puts <<~CHOICE
+    puts <<-'CHOICE'
       
       To learn more about a headline, type its number then press <Enter>.
-
       To exit the application, enter "e" or "exit".
-   
+
+      What would you like to do?
       CHOICE
   end
 
   def self.display_article
-		p "in CLI #display_article"
-	  article = ScienceDaily::Article.add_article_features
-    puts <<~ARTICLE
-
-          #{article.subtitle}     
-          
-          Posted:       #{article.date_posted}
-          Source:       #{article.source}
-          Abstract:             
-          #{article.abstract}
-
-          Full article: "#{ScienceDaily.site}#{article.url}"
+    p "in CLI #display_article"
+    #binding.pry
+    article = current_choice
  
-    ARTICLE
-
+    system "clear"
+    puts "current choice = #{current_choice}"
+#    puts <<~ARTICLE
+#          
+#          Title:    #{article.subtitle}     
+#          Posted:   #{article.date_posted}
+#          Source:   #{article.source}
+#
+#          Abstract:             
+#          #{article.abstract}
+#
+#          Full article: "#{article.full_url}"
+#
+#    ARTICLE
+#    # try this to make border over/under article text #{80.times do '~' end}
+    cite_source_doc
   end
 
   def self.choose_again_doc
     puts <<~ANOTHER
-      
-    Hey, scientists figure out cool stuff!
-      
+
+      Hey, scientists figure out cool stuff!
+
       Want to see another article? Enter letter "l"
       Ready to exit the app? Enter "e" or "exit"
- 
-    ANOTHER
+    
+      ANOTHER
+    
+    stop  # ?? calls temp bailout method, REMOVE this line when app fixed
   end
       
   def self.cite_source_doc
@@ -141,6 +158,8 @@ class ScienceDaily::CLI
       https://www.sciencedaily.com/terms.htm
 
       CITE
+    sleep(5)
+    choose_again_doc
   end
 
   def self.goodbye_doc
