@@ -1,44 +1,38 @@
 class ScienceDaily::CLI
 
-  attr_accessor :choice, :current_choices
+  attr_accessor :choices, :current_choice
 
   @@choices = []
 	@@current_choice = -1
 	    
   def self.start
   p "in CLI.start method"
-    create_articles
-    list_update_time
+    create_articles #headlines list: scrape & create objects
+    list_update_time #headlines list most recent update
     start_doc # Welcome message
-    list_articles # call methods: scrape,create article objects, display objects' titles
-		#choose_or_exit_doc
-	  #main_app_loop # list headlines, article number or exit  
-    #goodbye_doc
-    #cite_source_doc
-		##choose_again_doc #ask user if want to see list again
+    list_articles 
 		main_app_loop
 	end 
 
   def self.main_app_loop
     p 'in CLI#main_app_loop method'
-    input = gets.strip
-    goodbye = "e".eql?(input.downcase)
-    list = "l".eql?(input.downcase)
-    digit = (1..10).include?(input.to_i) 
+    input = ""
     
-    until goodbye 
-
-      case        # no variable/value input to case
-        when list
-          system "clear"
-		  		choice = list_articles
+    until input == "e"
+      input = gets.strip.downcase
+      goodbye = "e".eql?(input)
+      list = "l".eql?(input)
+      digit = (1..10).include?(input.to_i) 
+      case      
         when goodbye
           goodbye_doc
-          choice = exit
+        when list
+          system "clear"
+		  		list_articles
         when digit 
           choice = input.to_i - 1
           @@choices << choice
-          @@current_choice = choice #
+          @@current_choice = choice 
           system "clear"
           display_article # calls Article.add_article_features
         else
@@ -48,12 +42,15 @@ class ScienceDaily::CLI
     end
   end
 
-# 2/5/20: temp method while troubleshooting endless loop problem
-  def self.stop
-    exit
+  def self.choices
+    @@choices # keeps history of all article choices
   end
 
-  ####  1ST LEVEL DATA METHODS - HEADLINES LIST ####
+  def self.current_choice
+    @@current_choice
+  end
+
+  ####  1ST LEVEL DATA - HEADLINES LIST ####
     
   def self.create_articles
   p "in CLI.create_articles method"
@@ -66,29 +63,20 @@ class ScienceDaily::CLI
 
   def self.list_articles
   	p "in CLI.list_articles method"
-    # now iterate all article objects to display list for user
-    ScienceDaily::Article.list_articles
-    
+        # now iterate all article objects to display list for user
+    ScienceDaily::Article.list_articles 
   end
-  
-  
-  def self.choices
-    @@choices # keeps history of all article choices
-  end
-
-  def self.current_choice
-    @@current_choice
-  end
-
-
   #### END 1ST LEVEL - list articles METHODS ####
   
-# HEREDOCS SECTION: user interaction messages
-  # ?? TODO: 1. using HEREDOC with tick marks <<-'HEREDOC' - how that helps with alignment
-  #             make Headlines Updated line INDENT! it's flush left
-  #          2. how to CLEAR console screen then display doc?
+  #### 2nd LEVEL DATA - add individual article attributes & display ####
+    def self.display_article
+  #### END 2ND LEVEL DATA     #####
+
+      # HEREDOCS SECTION: user interaction messages
+        # ?? TODO: 1. using HEREDOC with tick marks <<-'HEREDOC' - how that helps with alignment
+        #             make Headlines Updated line INDENT! it's flush left
+  
   def self.start_doc
-    # ?? Do a clear console - Ruby command?
     system "clear"
       puts <<-'WELCOME'
 
@@ -115,23 +103,24 @@ class ScienceDaily::CLI
   def self.display_article
     p "in CLI #display_article"
     #binding.pry
-    article = current_choice
+    article = ScienceDaily::Article.all[current_choice]
+    binding.pry
  
     system "clear"
     puts "current choice = #{current_choice}"
-#    puts <<~ARTICLE
-#          
-#          Title:    #{article.subtitle}     
-#          Posted:   #{article.date_posted}
-#          Source:   #{article.source}
-#
-#          Abstract:             
-#          #{article.abstract}
-#
-#          Full article: "#{article.full_url}"
-#
-#    ARTICLE
-#    # try this to make border over/under article text #{80.times do '~' end}
+    puts <<~ARTICLE
+          
+          Title:    #{article.subtitle}     
+          Posted:   #{article.date_posted}
+          Source:   #{article.source}
+
+          Abstract:             
+          #{article.abstract}
+
+          Full article: "#{article.full_url}"
+
+    ARTICLE
+    # try this to make border over/under article text #{80.times do '~' end}
     cite_source_doc
   end
 
@@ -145,7 +134,7 @@ class ScienceDaily::CLI
     
       ANOTHER
     
-    stop  # ?? calls temp bailout method, REMOVE this line when app fixed
+    #stop  # ?? calls temp bailout method, REMOVE this line when app fixed
   end
       
   def self.cite_source_doc

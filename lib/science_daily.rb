@@ -15,6 +15,6 @@ module ScienceDaily
   #  TOPSCI_PAGE
   #end
   p "in environment.rb, end of module ScienceDaily"
-end #module ScienceDaily end
+ end #module ScienceDaily end
 
 require_relative '../config/environment'
