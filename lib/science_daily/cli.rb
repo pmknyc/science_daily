@@ -33,8 +33,7 @@ class ScienceDaily::CLI
           choice = input.to_i - 1
           @@choices << choice
           @@current_choice = choice 
-          system "clear"
-          display_article # calls Article.add_article_features
+          add_article_features # calls Article.add_article_features
         else
           puts "I don't understand that. Please try again."
           main_app_loop # recurse until valid choice
@@ -69,7 +68,11 @@ class ScienceDaily::CLI
   #### END 1ST LEVEL - list articles METHODS ####
   
   #### 2nd LEVEL DATA - add individual article attributes & display ####
-    def self.display_article
+    def self.add_article_features
+      #article = ScienceDaily::Article.all[current_choice]  
+      ScienceDaily::Article.add_article_features
+      display_article
+    end 
   #### END 2ND LEVEL DATA     #####
 
       # HEREDOCS SECTION: user interaction messages
@@ -93,8 +96,8 @@ class ScienceDaily::CLI
   def self.choose_or_exit_doc
     puts <<-'CHOICE'
       
-      To learn more about a headline, type its number then press <Enter>.
-      To exit the application, enter "e" or "exit".
+      To learn more about a headline, type its number then press <Enter>
+      To exit the application, enter "e"
 
       What would you like to do?
       CHOICE
@@ -102,12 +105,8 @@ class ScienceDaily::CLI
 
   def self.display_article
     p "in CLI #display_article"
-    #binding.pry
     article = ScienceDaily::Article.all[current_choice]
-    binding.pry
- 
     system "clear"
-    puts "current choice = #{current_choice}"
     puts <<~ARTICLE
           
           Title:    #{article.subtitle}     
@@ -133,8 +132,6 @@ class ScienceDaily::CLI
       Ready to exit the app? Enter "e" or "exit"
     
       ANOTHER
-    
-    #stop  # ?? calls temp bailout method, REMOVE this line when app fixed
   end
       
   def self.cite_source_doc

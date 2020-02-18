@@ -40,20 +40,16 @@ class ScienceDaily::Article
     @@updates << update_time if @@updates.none?(update_time) #prevent repeated times in array
   end
 
-  def self.add_list_updated #time list updated becomes article attribute
+  # If an article is in current Top Sci list, get the update time
+  #    of that list and add time to each article's array of update times; 
+  #    article.list_updated array shows all the headlines lists in which it 
+  #    has been included/shown on Top Sci site page 
+  def self.add_list_update_time_to_articles_in_list 
     update = topsci_headlines_latest_update
     self.all.each do |article| 
       article.list_updated << update if article.list_updated.none?(update)
     end
   end
-    
-  #  #    ?? topsci_list_update_time
-  #       use later when add feature for user to "check for updates"
-  #       use & assign as attribute for all article objects
-  #       reason: allows articles to get new "update time"; this attrib
-  #       will reveal which articles most recently updated
-  #      ?? when add option for user to check if any updates since starting
-  # the app, add a different "update time" method for that scenario
 
   def self.list_articles # called from CLI, lists headlines to console
     puts "\nHeadlines Updated: #{self.updates.last} \n\n"
@@ -73,18 +69,20 @@ class ScienceDaily::Article
 
   #### 2nd LEVEL DATA METHODS -- CHOSEN ARTICLE ####
 
-  def self.chosen_article
-    p "in Article.chosen_article"
-    all[ScienceDaily::CLI.current_choice] # finds article by index in Article.all
-  end
-
   def self.add_article_features
     p 'in Article.add_article_features'
-    if !chosen_article.subtitle # already created
-      ScienceDaily::Scraper.article_features(self.chosen_article)
+  # binding.pry
+    article = chosen_article
+    if !article.subtitle # already created
+      ScienceDaily::Scraper.article_features(article)
     else
-      chosen_article
+      article
     end
   end
  
+  def self.chosen_article
+    p "in Article.chosen_article"
+  # binding.pry
+    all[ScienceDaily::CLI.current_choice] # finds article by index in Article.all array
+  end
 end # class end
