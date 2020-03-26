@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ScienceDaily::CLI
 
   attr_accessor :choices, :current_choice
@@ -27,7 +29,7 @@ class ScienceDaily::CLI
         when goodbye
           goodbye_doc
         when list
-          system "clear"
+#          system "clear"
 		  		list_articles
         when digit 
           choice = input.to_i - 1
@@ -80,7 +82,7 @@ class ScienceDaily::CLI
         #             make Headlines Updated line INDENT! it's flush left
   
   def self.start_doc
-    system "clear"
+#    system "clear"
       puts <<-'WELCOME'
 
                       Welcome to Science Daily News
@@ -106,7 +108,7 @@ class ScienceDaily::CLI
   def self.display_article
     p "in CLI #display_article"
     article = ScienceDaily::Article.all[current_choice]
-    system "clear"
+#    system "clear"
     puts <<~ARTICLE
           
           Title:    #{article.subtitle}     

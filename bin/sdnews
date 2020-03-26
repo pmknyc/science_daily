@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require_relative '../lib/science_daily.rb' 
 
-p "begin sdnews"
+p "begin bin/sdnews"
 
 ScienceDaily::CLI.start
 
