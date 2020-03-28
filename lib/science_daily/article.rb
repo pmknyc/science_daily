@@ -23,16 +23,14 @@ class ScienceDaily::Article
     @@updates
   end
 
-  ####  1ST LEVEL DATA METHODS - HEADLINES LIST ####
+  ####  1ST LEVEL METHODS - HEADLINES LIST ####
 
   # TO DO: fix update times methods; separate methods for 
   #       first time Topsci page updated when session started,
   #       and a time_updater method to add new update times to @@updates
        
-  # .create_articles
-  #   called from CLI; Scraper method calls Article.new 
   def self.create_articles
-    ScienceDaily::Scraper.articles_list #initializes objects
+    ScienceDaily::Scraper.articles_list #initializes articles
   end  
 
   def self.topsci_headlines_latest_update #most recent time (string) list was updated
@@ -70,7 +68,7 @@ class ScienceDaily::Article
   #### 2nd LEVEL DATA METHODS -- CHOSEN ARTICLE ####
 
   def self.add_article_features
-    p 'in Article.add_article_features'
+    p 'Article.add_article_features'
   # binding.pry
     article = chosen_article
     if !article.subtitle # already created

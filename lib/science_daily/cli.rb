@@ -17,7 +17,7 @@ class ScienceDaily::CLI
 	end 
 
   def self.main_app_loop
-    p 'in CLI#main_app_loop method'
+    p 'CLI#main_app_loop method'
     input = ""
     
     until input == "e"
