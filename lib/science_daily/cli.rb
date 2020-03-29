@@ -17,37 +17,41 @@ class ScienceDaily::CLI
 	end 
 
   def self.main_app_loop
-    p 'CLI#main_app_loop method'
+    p 'CLI.main_app_loop method'
     input = ""
     
     until input == "e"
       input = gets.strip.downcase
       goodbye = "e".eql?(input)
       list = "l".eql?(input)
-      digit = (1..10).include?(input.to_i) 
+      num = (1..10).include?(input.to_i) 
       case      
         when goodbye
           goodbye_doc
         when list
 #          system "clear"
 		  		list_articles
-        when digit 
+        when num 
+          p 'num choice - CLI.main_app_loop'
           choice = input.to_i - 1
           @@choices << choice
           @@current_choice = choice 
-          add_article_features # calls Article.add_article_features
+          add_article_features # for chosen article
         else
-          puts "I don't understand that. Please try again."
+          p 'invalid choice - CLI.main_app_loop'
+          puts "\nI don't understand that. Please try again.\n"
           main_app_loop # recurse until valid choice
       end
     end
   end
 
   def self.choices
-    @@choices # keeps history of all article choices
+  p 'CLI.choices'
+    @@choices #article choices history in this session
   end
 
   def self.current_choice
+  p 'CLI.current_choice'  
     @@current_choice
   end
 
@@ -55,26 +59,26 @@ class ScienceDaily::CLI
     
   def self.create_articles
   p "in CLI.create_articles method"
-    ScienceDaily::Article.create_articles # 1st scrape, make article objects   
+    ScienceDaily::Article.create_articles # 1st scrape
   end
 
   def self.list_update_time
+  p 'CLI.list_update_time'
     ScienceDaily::Article.topsci_headlines_latest_update
   end
 
   def self.list_articles
-  	p "in CLI.list_articles method"
-        # now iterate all article objects to display list for user
+  p 'CLI.list_articles method'
     ScienceDaily::Article.list_articles 
   end
-  #### END 1ST LEVEL - list articles METHODS ####
+  #### END 1ST LEVEL - Headlines list ####
   
-  #### 2nd LEVEL DATA - add individual article attributes & display ####
-    def self.add_article_features
-      #article = ScienceDaily::Article.all[current_choice]  
-      ScienceDaily::Article.add_article_features
-      display_article
-    end 
+  #### 2nd LEVEL DATA - individual article features when chosen  ####
+  def self.add_article_features
+  p 'CLI.add_article_features'
+    ScienceDaily::Article.add_article_features
+    display_article
+  end 
   #### END 2ND LEVEL DATA     #####
 
       # HEREDOCS SECTION: user interaction messages
@@ -82,68 +86,80 @@ class ScienceDaily::CLI
         #             make Headlines Updated line INDENT! it's flush left
   
   def self.start_doc
+    p 'CLI.start_doc'
 #    system "clear"
       puts <<-'WELCOME'
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-                      Welcome to Science Daily News
+                               Welcome to Science Daily News
 
-               Breaking news in science from around the world!
-      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                      Breaking news in science from around the world!
+
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
       WELCOME
-   # ?? Add "type L for list" feature when figure out main loop problem
+   # ?? Add "type~ L for list" feature when figure out main loop problem
    #  Type the letter "L" for a list of the latest, top science headlines.
   end
       
   def self.choose_or_exit_doc
+    p 'CLI.choose_or_exit_doc'
+
     puts <<-'CHOICE'
       
-      To learn more about a headline, type its number then press <Enter>
-      To exit the application, enter "e"
+            To LEARN MORE, type a Headline number then press <Enter>
+            To EXIT the application, enter "e"
 
-      What would you like to do?
+            What would you like to do?
+    
       CHOICE
   end
 
   def self.display_article
-    p "in CLI #display_article"
+    p "CLI.display_article"
     article = ScienceDaily::Article.all[current_choice]
 #    system "clear"
-    puts <<~ARTICLE
+    puts <<-'ARTICLE'
+            ======================================================
+            
+            Title:    
+            #{article.subtitle.wrap_to_limit(60)}     
           
-          Title:    #{article.subtitle}     
-          Posted:   #{article.date_posted}
-          Source:   #{article.source}
+            Posted:   #{article.date_posted}
+            Source:   #{article.source}
+    
+            Abstract:             
+            #{article.abstract.wrap_to_limit(60)}
 
-          Abstract:             
-          #{article.abstract}
+            Full article:
+            #{article.full_url}
 
-          Full article: "#{article.full_url}"
-
+            ======================================================
     ARTICLE
-    # try this to make border over/under article text #{80.times do '~' end}
     cite_source_doc
   end
 
   def self.choose_again_doc
-    puts <<~ANOTHER
+    p 'CLI.choose_again_doc'
+    puts <<-'ANOTHER'
 
-      Hey, scientists figure out cool stuff!
+            Hey, scientists figure out cool stuff!
 
-      Want to see another article? Enter letter "l"
-      Ready to exit the app? Enter "e" or "exit"
-    
-      ANOTHER
+            Want to see another article? Enter letter "l"
+            Ready to exit the app? Enter "e" or "exit"
+
+            ANOTHER
   end
       
   def self.cite_source_doc
-    puts <<~CITE
+    p 'CLI.cite_source_doc'
+    puts <<-'CITE'
       
-      Acknowledgment:
-      Content is sourced from https://sciencedaily.com
-      and complies with that site's permissions for use.
-      We ask you also to abide by Science Daily's terms of use, found here:
-      https://www.sciencedaily.com/terms.htm
+            Acknowledgment:
+            Content is sourced from https://sciencedaily.com
+            and complies with that site's permissions for use.
+            We ask you also to abide by Science Daily's terms of use, found here:
+            https://www.sciencedaily.com/terms.htm
 
       CITE
     sleep(5)
@@ -151,15 +167,16 @@ class ScienceDaily::CLI
   end
 
   def self.goodbye_doc
-    puts <<~BYE
-      
-    **** Thank you! We hope you found something fascinating! ****
+    p 'CLI.goodbye_doc'
+    puts <<-'BYE'
+
+                 ~~~~ Thank you!  We hope you found something fascinating! ~~~~
     
-              Headlines are updated many times a day 
-                Please come again to see the latest 
-                science FACTS instead of FAKE NEWS!
+                              Headlines updated many times daily
+                              Please come again to see the latest 
+                              science FACTS instead of FAKE NEWS!
     
-    *************************************************************
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 		BYE
 		sleep(5)

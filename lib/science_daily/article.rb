@@ -50,12 +50,12 @@ class ScienceDaily::Article
   end
 
   def self.list_articles # called from CLI, lists headlines to console
-    puts "\nHeadlines Updated: #{self.updates.last} \n\n"
+    puts "\n             Headlines Updated: #{self.updates.last} \n\n"
     self.all.each.with_index(1) do |a, i|
       unless i > 9
-        puts " #{i}. #{a.title}"
+        puts "              #{i}. #{a.title}"
       else 
-        puts "#{i}. #{a.title}"
+        puts "             #{i}. #{a.title}"
       end
     end
     puts "\n"
@@ -69,9 +69,8 @@ class ScienceDaily::Article
 
   def self.add_article_features
     p 'Article.add_article_features'
-  # binding.pry
     article = chosen_article
-    if !article.subtitle # already created
+    if !article.subtitle # not already exist
       ScienceDaily::Scraper.article_features(article)
     else
       article
@@ -79,8 +78,7 @@ class ScienceDaily::Article
   end
  
   def self.chosen_article
-    p "in Article.chosen_article"
-  # binding.pry
+    p "Article.chosen_article - gets CLI.current_choice"
     all[ScienceDaily::CLI.current_choice] # finds article by index in Article.all array
   end
 end # class end
