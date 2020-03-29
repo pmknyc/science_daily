@@ -50,6 +50,7 @@ GEM
     thor (1.0.1)
     tilt (2.0.10)
     unicode-display_width (1.6.1)
+    wrapify (0.1.2)
     yard (0.9.24)
 
 PLATFORMS
@@ -62,6 +63,7 @@ DEPENDENCIES
   pry
   require_relative
   solargraph
+  wrapify
 
 BUNDLED WITH
    2.1.4

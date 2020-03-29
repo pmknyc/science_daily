@@ -6,6 +6,7 @@ require 'open-uri'
 require 'pry'
 require 'colorize'
 require 'solargraph'
+require 'wrapify'
 
 module ScienceDaily
 
