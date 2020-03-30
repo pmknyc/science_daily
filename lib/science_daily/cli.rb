@@ -36,6 +36,7 @@ class ScienceDaily::CLI
           choice = input.to_i - 1
           @@choices << choice
           @@current_choice = choice 
+        binding.pry
           add_article_features # for chosen article
         else
           p 'invalid choice - CLI.main_app_loop'
@@ -170,13 +171,13 @@ class ScienceDaily::CLI
     p 'CLI.goodbye_doc'
     puts <<-'BYE'
 
-                 ~~~~ Thank you!  We hope you found something fascinating! ~~~~
+            ~~~~ Thank you!  We hope you found something fascinating! ~~~~
     
-                              Headlines updated many times daily
-                              Please come again to see the latest 
-                              science FACTS instead of FAKE NEWS!
+                       Headlines updated many times daily
+                       Please come again to see the latest 
+                       science FACTS instead of FAKE NEWS!
     
-                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 		BYE
 		sleep(5)
