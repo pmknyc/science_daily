@@ -1,38 +1,48 @@
 # ScienceDaily
 
-A CLI gem to access Top Science News headlines from ScienceDaily.com
-
-## Gem making instructions from Bundle
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/science_daily`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A CLI application that lets you quickly check 10 Top Science News headlines and a summary of each, similar to an RSS feed.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+This was built in Ruby 2.6.1. 
+To install and run the application, you will need a local installation of Ruby. 
 
-```ruby
-gem 'science_daily'
-```
+Fork the repo and clone to your local machine.
 
-And then execute:
+Then execute:
 
     $ bundle
 
-Or install it yourself as:
+to install required gems and dependencies.
 
-    $ gem install science_daily
+Start the application at a terminal prompt:
+
+    $ bin/sdnews
 
 ## Usage
 
-TODO: Write usage instructions here
+After starting the app, you will see a list of 10 science headlines.
+
+Choose the number of the headline that interests you to see more details.
+
+Details about each article include:
+
+    1. The university or institution that conducted the research.
+    2. The date this article was posted at the ScienceDaily.com site.
+    3. A brief summary of the article to peak your interest to know more!
+    4. The URL of the full article so you can read it in a browser.
+
+The top science headlines are updated throughout the day! 
+
+The application pulls the most current list of headlines so you stay up-to-date on science news!
+
+Data are sourced from ScienceDaily.com, which posts news based on primary source journal articles or press releases from the scientists and institutions who conducted the research.
+
+Thanks for your interest! I hope you enjoy using this app.
 
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
@@ -40,7 +50,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/pmknyc
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+This app is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
 ## Code of Conduct
 
