@@ -25,10 +25,6 @@ class ScienceDaily::Article
 
   ####  1ST LEVEL METHODS - HEADLINES LIST ####
 
-  # TO DO: fix update times methods; separate methods for 
-  #       first time Topsci page updated when session started,
-  #       and a time_updater method to add new update times to @@updates
-       
   def self.create_articles
     ScienceDaily::Scraper.articles_list #initializes articles
   end  
@@ -36,17 +32,6 @@ class ScienceDaily::Article
   def self.topsci_headlines_latest_update #most recent time list was updated
     update_time = ScienceDaily::Scraper.topsci_headlines_update
     @@updates << update_time if @@updates.none?(update_time) 
-  end
-
-  # If an article is in current Top Sci list, get the update time
-  #    of that list and add time to each article's array of update times; 
-  #    article.list_updated array shows all the headlines lists in which it 
-  #    has been included/shown on Top Sci site page throughout the day
-  def self.add_list_update_time_to_articles_in_list 
-    update = topsci_headlines_latest_update
-    self.all.each do |article| 
-      article.list_updated << update if article.list_updated.none?(update)
-    end
   end
 
   def self.list_articles #top 10 headlines to console

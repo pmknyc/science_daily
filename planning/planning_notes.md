@@ -32,13 +32,3 @@ If user chooses article number:
    call article.URL as argument to 2nd scrape Scraper method
    Nokogiri opens 2nd scrape page using article's URL
 
-#  Later Features I want to add: 
-   *  At startup: choose to see articles list in Date or Alphabetical order?
-      - display list of 10 headlines in order chosen
-   *  List Update - headlines are updated throughout day
-      -  Ask user if want to check for newer Update Time to headlines list.
-         Add to existing choices list: see List, check Update time, Exit
-         -  If Yes, check update:
-            scrape 1st page's Update Time (to display)
-            scrape 1st page's Headlines list (to compare URLs for new articles since last update)
-            show user the new update time headlines list, and FLAG which articles are new to list

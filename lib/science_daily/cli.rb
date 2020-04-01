@@ -146,7 +146,6 @@ class ScienceDaily::CLI
 
             Want to see #{'another'.colorize(:light_blue)} article?  Enter letter #{'"l"'.colorize(:light_blue)}
             Ready to #{'exit'.colorize(:light_blue)} the app?        Enter #{'"e"'.colorize(:light_blue)}
-
             ANOTHER
   end
       
