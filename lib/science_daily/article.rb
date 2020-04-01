@@ -49,17 +49,25 @@ class ScienceDaily::Article
     end
   end
 
-  def self.list_articles # called from CLI, lists headlines to console
-    puts "\n             Headlines Updated: #{self.updates.last} \n\n"
-    self.all.each.with_index(1) do |a, i|
-      unless i > 9
-        puts "              #{i}. #{a.title}"
-      else 
-        puts "             #{i}. #{a.title}"
+  def self.list_articles #top 10 headlines to console
+    self.show_topsci_headlines_update_time
+      self.all.each.with_index(1) do |a, i|
+        unless i > 9
+          puts " #{i}. #{a.title}"
+        else 
+          puts "#{i}. #{a.title}"
+        end
       end
-    end
-    puts "\n"
+    draw_border_line
     ScienceDaily::CLI.choose_or_exit_doc
+  end
+
+  def self.draw_border_line
+    puts "\n#{'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'.colorize(:light_blue)}"
+  end
+
+  def self.show_topsci_headlines_update_time
+    puts "\n#{'Headlines Updated:'.colorize(:light_blue)} #{updates.last} \n\n"
   end
 
   #### END 1ST SCRAPE DATA METHODS ####

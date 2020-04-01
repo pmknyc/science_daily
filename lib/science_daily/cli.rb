@@ -9,7 +9,7 @@ class ScienceDaily::CLI
 	    
   def self.start
   p "in CLI.start method"
-    create_articles #headlines list: scrape & create objects
+    create_articles #scrape headlines list & create objects
     list_update_time #headlines list most recent update
     start_doc # Welcome message
     list_articles 
@@ -70,7 +70,8 @@ class ScienceDaily::CLI
 
   def self.list_articles
   p 'CLI.list_articles method'
-    ScienceDaily::Article.list_articles 
+    ScienceDaily::Article.list_articles
+
   end
   #### END 1ST LEVEL - Headlines list ####
   
@@ -88,19 +89,18 @@ class ScienceDaily::CLI
   
   def self.start_doc
     p 'CLI.start_doc'
-#    system "clear"
-      puts <<-'WELCOME'
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    system "clear"
+      puts <<~WELCOME
 
-                               Welcome to Science Daily News
+          #{'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'.colorize(:light_blue)}
 
-                      Breaking news in science from around the world!
+                          #{'Welcome to Science Daily News'.colorize(:white)}
 
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                 #{'Breaking news in science from around the world!'.colorize(:white)}
+
+          #{'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'.colorize(:light_blue)}
 
       WELCOME
-   # ?? Add "type~ L for list" feature when figure out main loop problem
-   #  Type the letter "L" for a list of the latest, top science headlines.
   end
       
   def self.choose_or_exit_doc
@@ -119,22 +119,22 @@ class ScienceDaily::CLI
   def self.display_article
     p "CLI.display_article"
     article = ScienceDaily::Article.all[current_choice]
-#    system "clear"
-    puts <<~ARTICLE
-            
-          #{"Title:".colorize(:light_blue)}
-          #{article.subtitle.colorize(:light_yellow)}
-
-          #{"Posted:".colorize(:light_blue)}  #{article.date_posted.colorize(:light_yellow)}
-          #{"Source:".colorize(:light_blue)}  #{article.source.colorize(:light_yellow)}
-          
-          #{"Abstract:".colorize(:light_blue)}
-          #{article.abstract.colorize(:light_yellow).wrap_to_limit(65)}
-          
-          #{"Full article:".colorize(:light_blue)}
-          #{article.full_url.colorize(:light_yellow)}
-
-    ARTICLE
+      system "clear"
+        puts <<~ARTICLE
+                
+              #{"Title:".colorize(:light_blue)}
+              #{article.subtitle.colorize(:light_yellow)}
+      
+              #{"Posted:".colorize(:light_blue)}  #{article.date_posted.colorize(:light_yellow)}
+              #{"Source:".colorize(:light_blue)}  #{article.source.colorize(:light_yellow)}
+              
+              #{"Abstract:".colorize(:light_blue)}
+              #{article.abstract.colorize(:light_yellow).wrap_to_limit(65)}
+              
+              #{"Full article:".colorize(:light_blue)}
+              #{article.full_url.colorize(:light_yellow)}
+      
+        ARTICLE
     cite_source_doc
   end
 
