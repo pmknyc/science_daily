@@ -142,19 +142,19 @@ class ScienceDaily::CLI
     p 'CLI.choose_again_doc'
     puts <<~ANOTHER
 
-            Hey, scientists figure out cool stuff!
+            #{'Hey, scientists figure out cool stuff!'.colorize(:magenta)}
 
-            Want to see another article?  Enter letter "l"
-            Ready to exit the app?        Enter "e"
+            Want to see #{'another'.colorize(:light_blue)} article?  Enter letter #{'"l"'.colorize(:light_blue)}
+            Ready to #{'exit'.colorize(:light_blue)} the app?        Enter #{'"e"'.colorize(:light_blue)}
 
             ANOTHER
   end
       
   def self.cite_source_doc
     p 'CLI.cite_source_doc'
-    puts <<-'CITE'
+    puts <<~CITE
       
-            Acknowledgment:
+            #{'Acknowledgment:'.colorize(:light_blue)}
             Content is sourced from https://sciencedaily.com
             and complies with that site's permissions for use.
             We ask you also to abide by Science Daily's terms of use, found here:
@@ -167,9 +167,9 @@ class ScienceDaily::CLI
 
   def self.goodbye_doc
     p 'CLI.goodbye_doc'
-    puts <<-'BYE'
+    puts <<~BYE
 
-            ~~~~ Thank you!  We hope you found something fascinating! ~~~~
+            ~~~~ #{'Thank you!  We hope you found something fascinating!'.colorize(:magenta)} ~~~~
     
                        Headlines updated many times daily
                        Please come again to see the latest 
