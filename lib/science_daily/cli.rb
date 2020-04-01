@@ -17,7 +17,7 @@ class ScienceDaily::CLI
 	end 
 
   def self.main_app_loop
-    p 'CLI.main_app_loop method'
+    p 'CLI.main_app_loop '
     input = ""
     
     until input == "e"
@@ -36,7 +36,7 @@ class ScienceDaily::CLI
           choice = input.to_i - 1
           @@choices << choice
           @@current_choice = choice 
-        binding.pry
+        # binding.pry
           add_article_features # for chosen article
         else
           p 'invalid choice - CLI.main_app_loop'
@@ -120,22 +120,20 @@ class ScienceDaily::CLI
     p "CLI.display_article"
     article = ScienceDaily::Article.all[current_choice]
 #    system "clear"
-    puts <<-'ARTICLE'
-            ======================================================
+    puts <<~ARTICLE
             
-            Title:    
-            #{article.subtitle.wrap_to_limit(60)}     
+          #{"Title:".colorize(:light_blue)}
+          #{article.subtitle.colorize(:light_yellow)}
+
+          #{"Posted:".colorize(:light_blue)}  #{article.date_posted.colorize(:light_yellow)}
+          #{"Source:".colorize(:light_blue)}  #{article.source.colorize(:light_yellow)}
           
-            Posted:   #{article.date_posted}
-            Source:   #{article.source}
-    
-            Abstract:             
-            #{article.abstract.wrap_to_limit(60)}
+          #{"Abstract:".colorize(:light_blue)}
+          #{article.abstract.colorize(:light_yellow).wrap_to_limit(65)}
+          
+          #{"Full article:".colorize(:light_blue)}
+          #{article.full_url.colorize(:light_yellow)}
 
-            Full article:
-            #{article.full_url}
-
-            ======================================================
     ARTICLE
     cite_source_doc
   end

@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-p 'science_daily.rb: read REQUIRE options'
+p 'lib/science_daily.rb: read gem require options'
 require 'nokogiri'
 require 'open-uri'
 require 'pry'
 require 'colorize'
+require 'colorized_string'
 require 'solargraph'
 require 'wrapify'
 
@@ -12,7 +13,7 @@ module ScienceDaily
 
   class Error < StandardError
   end
-  p "in lib/science_daily.rb, end of module ScienceDaily"
+  p "lib/science_daily.rb, end of module ScienceDaily"
 
 end #module ScienceDaily end
 
@@ -24,3 +25,4 @@ require_relative '../lib/science_daily/scraper.rb'
 require_relative '../lib/science_daily/cli.rb'
 require_relative '../lib/science_daily/article.rb'
 require_relative '../lib/science_daily/version'
+p 'lib/science_daily.rb, finished reading file requires'

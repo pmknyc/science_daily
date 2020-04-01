@@ -33,15 +33,15 @@ class ScienceDaily::Article
     ScienceDaily::Scraper.articles_list #initializes articles
   end  
 
-  def self.topsci_headlines_latest_update #most recent time (string) list was updated
+  def self.topsci_headlines_latest_update #most recent time list was updated
     update_time = ScienceDaily::Scraper.topsci_headlines_update
-    @@updates << update_time if @@updates.none?(update_time) #prevent repeated times in array
+    @@updates << update_time if @@updates.none?(update_time) 
   end
 
   # If an article is in current Top Sci list, get the update time
   #    of that list and add time to each article's array of update times; 
   #    article.list_updated array shows all the headlines lists in which it 
-  #    has been included/shown on Top Sci site page 
+  #    has been included/shown on Top Sci site page throughout the day
   def self.add_list_update_time_to_articles_in_list 
     update = topsci_headlines_latest_update
     self.all.each do |article| 
@@ -70,15 +70,15 @@ class ScienceDaily::Article
   def self.add_article_features
     p 'Article.add_article_features'
     article = chosen_article
-    if !article.subtitle # not already exist
-      ScienceDaily::Scraper.article_features(article)
-    else
-      article
-    end
+      if !article.subtitle # not already exist
+        ScienceDaily::Scraper.article_features(article)
+      else
+        article
+      end
   end
  
   def self.chosen_article
     p "Article.chosen_article - gets CLI.current_choice"
-    all[ScienceDaily::CLI.current_choice] # finds article by index in Article.all array
+    all[ScienceDaily::CLI.current_choice] #finds article by index in Article.all array
   end
 end # class end

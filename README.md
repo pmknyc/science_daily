@@ -2,7 +2,7 @@
 
 A CLI application that lets you quickly check 10 Top Science News headlines and a summary of each, similar to an RSS feed.
 
-## Installation
+# Installation
 
 This was built in Ruby 2.6.1. 
 To install and run the application, you will need a local installation of Ruby. 
@@ -23,7 +23,7 @@ Start the application at a terminal prompt:
 
 After starting the app, you will see a list of 10 science headlines.
 
-Choose the number of the headline that interests you to see more details.
+Choose the number of the headline that interests you to see details about the article.
 
 Details about each article include:
 
@@ -34,7 +34,7 @@ Details about each article include:
 
 The top science headlines are updated throughout the day! 
 
-The application pulls the most current list of headlines so you stay up-to-date on science news!
+Each time you run the application, it pulls the most current list of headlines so you can stay up-to-date on science news!
 
 Data are sourced from ScienceDaily.com, which posts news based on primary source journal articles or press releases from the scientists and institutions who conducted the research.
 
