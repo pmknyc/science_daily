@@ -18,7 +18,7 @@ class ScienceDaily::CLI
 
   def self.main_app_loop
     p 'CLI.main_app_loop '
-    input = ""
+    input = String.new
     
     until input == "e"
       input = gets.strip.downcase
