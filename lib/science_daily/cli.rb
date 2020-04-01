@@ -177,7 +177,8 @@ class ScienceDaily::CLI
     
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-		BYE
-		sleep(5)
+	    	BYE
+      sleep(5)
+    exit
   end
 end # class CLI end
