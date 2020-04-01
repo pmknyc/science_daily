@@ -9,9 +9,9 @@ class ScienceDaily::CLI
 	    
   def self.start
   p "in CLI.start method"
+    start_doc # Welcome message
     create_articles #scrape headlines list & create objects
     list_update_time #headlines list most recent update
-    start_doc # Welcome message
     list_articles 
 		main_app_loop
 	end 
@@ -19,31 +19,26 @@ class ScienceDaily::CLI
   def self.main_app_loop
     p 'CLI.main_app_loop '
     input = String.new
-    
-    until input == "e"
-      input = gets.strip.downcase
-      goodbye = "e".eql?(input)
-      list = "l".eql?(input)
-      num = (1..10).include?(input.to_i) 
-      case      
-        when goodbye
-          goodbye_doc
-        when list
-#          system "clear"
-		  		list_articles
-        when num 
-          p 'num choice - CLI.main_app_loop'
-          choice = input.to_i - 1
-          @@choices << choice
-          @@current_choice = choice 
-        # binding.pry
-          add_article_features # for chosen article
-        else
-          p 'invalid choice - CLI.main_app_loop'
-          puts "\nI don't understand that. Please try again.\n"
-          main_app_loop # recurse until valid choice
+      until input == "e"
+        input = gets.strip.downcase
+          case  
+            when input == "e"
+              goodbye_doc
+            when input == "l"
+              system "clear"
+    		  		list_articles
+            when input.to_i.between?(1, 10)
+              p 'num choice - CLI.main_app_loop'
+              choice = input.to_i - 1
+              @@choices << choice
+              @@current_choice = choice 
+              add_article_features # for chosen article
+            else
+              p 'invalid choice - CLI.main_app_loop'
+              puts "\nI don't understand that. Please try again.\n"
+              main_app_loop # recurse until valid choice
+          end
       end
-    end
   end
 
   def self.choices
@@ -83,10 +78,7 @@ class ScienceDaily::CLI
   end 
   #### END 2ND LEVEL DATA     #####
 
-      # HEREDOCS SECTION: user interaction messages
-        # ?? TODO: 1. using HEREDOC with tick marks <<-'HEREDOC' - how that helps with alignment
-        #             make Headlines Updated line INDENT! it's flush left
-  
+ 
   def self.start_doc
     p 'CLI.start_doc'
     system "clear"
