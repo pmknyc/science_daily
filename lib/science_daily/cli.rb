@@ -17,7 +17,7 @@ class ScienceDaily::CLI
 	end 
 
   def self.main_app_loop
-    p 'CLI.main_app_loop '
+    p 'CLI.main_app_loop'
     input = String.new
       until input == "e"
         input = gets.strip.downcase
@@ -25,7 +25,7 @@ class ScienceDaily::CLI
             when input == "e"
               goodbye_doc
             when input == "l"
-              system "clear"
+           #   system "clear"
     		  		list_articles
             when input.to_i.between?(1, 10)
               p 'num choice - CLI.main_app_loop'
@@ -81,7 +81,7 @@ class ScienceDaily::CLI
  
   def self.start_doc
     p 'CLI.start_doc'
-    system "clear"
+ #   system "clear"
       puts <<~WELCOME
 
           #{'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'.colorize(:light_blue)}
@@ -111,7 +111,7 @@ class ScienceDaily::CLI
   def self.display_article
     p "CLI.display_article"
     article = ScienceDaily::Article.all[current_choice]
-      system "clear"
+ #     system "clear"
         puts <<~ARTICLE
 
               #{"Title:".colorize(:light_blue)}

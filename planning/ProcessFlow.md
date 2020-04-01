@@ -6,8 +6,7 @@ lib/science_daily.rb:
 
 ## Call first method
 bin/sdnews calls:
-
-CLI.start 
+  * CLI.start 
 
 CLI.create_articles
 Article.create_articles

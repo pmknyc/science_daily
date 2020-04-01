@@ -26,15 +26,18 @@ class ScienceDaily::Article
   ####  1ST LEVEL METHODS - HEADLINES LIST ####
 
   def self.create_articles
+    p 'Article.create_articles'
     ScienceDaily::Scraper.articles_list #initializes articles
   end  
 
   def self.topsci_headlines_latest_update #most recent time list was updated
+    p 'Article.topsci_headlines_latest_update'
     update_time = ScienceDaily::Scraper.topsci_headlines_update
     @@updates << update_time if @@updates.none?(update_time) 
   end
 
   def self.list_articles #top 10 headlines to console
+    p 'Article.list_articles' 
     self.show_topsci_headlines_update_time
       self.all.each.with_index(1) do |a, i|
         unless i > 9
@@ -48,10 +51,12 @@ class ScienceDaily::Article
   end
 
   def self.draw_border_line
+    p 'Article.draw_border_line'
     puts "\n#{'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'.colorize(:light_blue)}"
   end
 
   def self.show_topsci_headlines_update_time
+    p 'Article.show_topsci_headlines_update_time'
     puts "\n#{'Headlines Updated:'.colorize(:light_blue)} #{updates.last} \n\n"
   end
 

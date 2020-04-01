@@ -1,0 +1,59 @@
+// ♥  bin/sdnews                                                                                                                                 
+"lib/science_daily.rb: read gem require options"
+/home/pmdev/.rvm/gems/ruby-2.6.1/gems/pry-0.13.0/lib/pry/editor.rb:19: warning: Insecure world writable dir /home/pmdev/.rvm/gems/ruby-2.6.1/bin 
+in PATH, mode 040777
+"lib/science_daily.rb, end of module ScienceDaily"
+"lib/science_daily.rb, finished reading file requires"       
+"begin bin/sdnews"
+"in CLI.start method"
+"CLI.start_doc"
+
+"in CLI.create_articles method"
+"Article.create_articles"
+"Scraper.articles_list"
+"CLI.list_update_time"
+"Article.topsci_headlines_latest_update"
+"in Scraper.topsci_headlines_updates"
+"CLI.list_articles method"
+"Article.list_articles"
+"Article.show_topsci_headlines_update_time"
+
+"Article.draw_border_line"
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"CLI.choose_or_exit_doc"
+
+To learn more, enter the headline number
+To exit the application, enter "e"
+
+What would you like to do?
+
+"CLI.main_app_loop"
+"invalid choice - CLI.main_app_loop"
+
+I don't understand that. Please try again.
+"CLI.main_app_loop"
+
+
+"num choice - CLI.main_app_loop"
+"CLI.add_article_features"
+"Article.add_article_features"
+"Article.chosen_article - gets CLI.current_choice"
+"CLI.current_choice"
+"Scraper.article_features"
+"CLI.display_article"
+"CLI.current_choice"
+
+Title:
+Old Human Cells Rejuvenated With Stem Cell Technology
+
+"CLI.cite_source_doc"
+"CLI.choose_again_doc"
+
+To learn more, enter the headline number
+To exit the application, enter "e"
+
+What would you like to do?
+e
+
+"CLI.goodbye_doc"
