@@ -106,10 +106,10 @@ class ScienceDaily::CLI
   def self.choose_or_exit_doc
     p 'CLI.choose_or_exit_doc'
 
-    puts <<-'CHOICE'
+    puts <<~CHOICE
       
-            To LEARN MORE, type a Headline number then press <Enter>
-            To EXIT the application, enter "e"
+            To #{'learn more'.colorize(:light_blue)}, enter the headline #{'number'.colorize(:light_blue)}
+            To #{'exit'.colorize(:light_blue)} the application, enter #{'"e"'.colorize(:light_blue)}
 
             What would you like to do?
     
@@ -121,31 +121,31 @@ class ScienceDaily::CLI
     article = ScienceDaily::Article.all[current_choice]
       system "clear"
         puts <<~ARTICLE
-                
+
               #{"Title:".colorize(:light_blue)}
               #{article.subtitle.colorize(:light_yellow)}
-      
+
               #{"Posted:".colorize(:light_blue)}  #{article.date_posted.colorize(:light_yellow)}
               #{"Source:".colorize(:light_blue)}  #{article.source.colorize(:light_yellow)}
-              
+
               #{"Abstract:".colorize(:light_blue)}
               #{article.abstract.colorize(:light_yellow).wrap_to_limit(65)}
-              
+
               #{"Full article:".colorize(:light_blue)}
               #{article.full_url.colorize(:light_yellow)}
-      
+
         ARTICLE
     cite_source_doc
   end
 
   def self.choose_again_doc
     p 'CLI.choose_again_doc'
-    puts <<-'ANOTHER'
+    puts <<~ANOTHER
 
             Hey, scientists figure out cool stuff!
 
-            Want to see another article? Enter letter "l"
-            Ready to exit the app? Enter "e" or "exit"
+            Want to see another article?  Enter letter "l"
+            Ready to exit the app?        Enter "e"
 
             ANOTHER
   end
