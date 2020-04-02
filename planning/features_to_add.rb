@@ -1,6 +1,6 @@
 
-	#  Later Features I want to add: 
-	*  Sort Headlines Option:  
+#  Later Features I want to add: 
+*  Sort Headlines Option:  
 	-  At startup: choose to see articles list in Date or Alphabetical order?
 	-  display list of 10 headlines in order chosen
 *  Update Tracker - headlines are updated throughout day

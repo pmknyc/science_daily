@@ -1,7 +1,5 @@
 // ♥  bin/sdnews                                                                                                                                 
-"lib/science_daily.rb: read gem require options"
-/home/pmdev/.rvm/gems/ruby-2.6.1/gems/pry-0.13.0/lib/pry/editor.rb:19: warning: Insecure world writable dir /home/pmdev/.rvm/gems/ruby-2.6.1/bin 
-in PATH, mode 040777
+
 "lib/science_daily.rb, end of module ScienceDaily"
 "lib/science_daily.rb, finished reading file requires"       
 "begin bin/sdnews"

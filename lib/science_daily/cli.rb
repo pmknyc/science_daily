@@ -8,16 +8,14 @@ class ScienceDaily::CLI
 	@@current_choice = -1
 	    
   def self.start
-  p "in CLI.start method"
     start_doc # Welcome message
-    create_articles #scrape headlines list & create objects
     list_update_time #headlines list most recent update
+    create_articles #scrape headlines list & create objects
     list_articles 
 		main_app_loop
 	end 
 
   def self.main_app_loop
-    p 'CLI.main_app_loop'
     input = String.new
       until input == "e"
         input = gets.strip.downcase
@@ -25,16 +23,14 @@ class ScienceDaily::CLI
             when input == "e"
               goodbye_doc
             when input == "l"
-           #   system "clear"
+              system "clear"
     		  		list_articles
             when input.to_i.between?(1, 10)
-              p 'num choice - CLI.main_app_loop'
               choice = input.to_i - 1
               @@choices << choice
               @@current_choice = choice 
               add_article_features # for chosen article
             else
-              p 'invalid choice - CLI.main_app_loop'
               puts "\nI don't understand that. Please try again.\n"
               main_app_loop # recurse until valid choice
           end
@@ -42,37 +38,30 @@ class ScienceDaily::CLI
   end
 
   def self.choices
-  p 'CLI.choices'
     @@choices #article choices history in this session
   end
 
   def self.current_choice
-  p 'CLI.current_choice'  
     @@current_choice
   end
 
   ####  1ST LEVEL DATA - HEADLINES LIST ####
     
   def self.create_articles
-  p "in CLI.create_articles method"
     ScienceDaily::Article.create_articles # 1st scrape
   end
 
   def self.list_update_time
-  p 'CLI.list_update_time'
     ScienceDaily::Article.topsci_headlines_latest_update
   end
 
   def self.list_articles
-  p 'CLI.list_articles method'
     ScienceDaily::Article.list_articles
-
   end
   #### END 1ST LEVEL - Headlines list ####
   
   #### 2nd LEVEL DATA - individual article features when chosen  ####
   def self.add_article_features
-  p 'CLI.add_article_features'
     ScienceDaily::Article.add_article_features
     display_article
   end 
@@ -80,8 +69,7 @@ class ScienceDaily::CLI
 
  
   def self.start_doc
-    p 'CLI.start_doc'
- #   system "clear"
+    system "clear"
       puts <<~WELCOME
 
           #{'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'.colorize(:light_blue)}
@@ -96,8 +84,6 @@ class ScienceDaily::CLI
   end
       
   def self.choose_or_exit_doc
-    p 'CLI.choose_or_exit_doc'
-
     puts <<~CHOICE
       
             To #{'learn more'.colorize(:light_blue)}, enter the headline #{'number'.colorize(:light_blue)}
@@ -109,9 +95,8 @@ class ScienceDaily::CLI
   end
 
   def self.display_article
-    p "CLI.display_article"
     article = ScienceDaily::Article.all[current_choice]
- #     system "clear"
+      system "clear"
         puts <<~ARTICLE
 
               #{"Title:".colorize(:light_blue)}
@@ -131,7 +116,6 @@ class ScienceDaily::CLI
   end
 
   def self.choose_again_doc
-    p 'CLI.choose_again_doc'
     puts <<~ANOTHER
 
             #{'Hey, scientists figure out cool stuff!'.colorize(:magenta)}
@@ -142,7 +126,6 @@ class ScienceDaily::CLI
   end
       
   def self.cite_source_doc
-    p 'CLI.cite_source_doc'
     puts <<~CITE
       
             #{'Acknowledgment:'.colorize(:light_blue)}
@@ -157,7 +140,6 @@ class ScienceDaily::CLI
   end
 
   def self.goodbye_doc
-    p 'CLI.goodbye_doc'
     puts <<~BYE
 
             ~~~~ #{'Thank you!  We hope you found something fascinating!'.colorize(:magenta)} ~~~~
