@@ -30,6 +30,7 @@ class ScienceDaily::CLI
               @@choices << choice
               @@current_choice = choice 
               add_article_features # for chosen article
+              display_article
             else
               puts "\nI don't understand that. Please try again.\n"
               main_app_loop # recurse until valid choice
@@ -47,26 +48,48 @@ class ScienceDaily::CLI
 
   ####  1ST LEVEL DATA - HEADLINES LIST ####
     
-  def self.create_articles
-    ScienceDaily::Article.create_articles # 1st scrape
+    def self.list_update_time
+    ScienceDaily::Article.topsci_headlines_latest_update
   end
 
-  def self.list_update_time
-    ScienceDaily::Article.topsci_headlines_latest_update
+  def self.create_articles
+    ScienceDaily::Article.create_articles # 1st scrape
   end
 
   def self.list_articles
     ScienceDaily::Article.list_articles
   end
+
   #### END 1ST LEVEL - Headlines list ####
   
   #### 2nd LEVEL DATA - individual article features when chosen  ####
+  
   def self.add_article_features
     ScienceDaily::Article.add_article_features
-    display_article
   end 
-  #### END 2ND LEVEL DATA     #####
 
+  def self.display_article
+    article = ScienceDaily::Article.all[current_choice]
+      system "clear"
+        puts <<~ARTICLE
+
+              #{"Title:".colorize(:light_blue)}
+              #{article.subtitle.colorize(:light_yellow)}
+
+              #{"Posted:".colorize(:light_blue)}  #{article.date_posted.colorize(:light_yellow)}
+              #{"Source:".colorize(:light_blue)}  #{article.source.colorize(:light_yellow)}
+
+              #{"Abstract:".colorize(:light_blue)}
+              #{article.abstract.colorize(:light_yellow).wrap_to_limit(65)}
+
+              #{"Full article:".colorize(:light_blue)}
+              #{article.full_url.colorize(:light_yellow)}
+
+        ARTICLE
+    cite_source_doc
+  end
+  
+  #### END 2ND LEVEL DATA     #####
  
   def self.start_doc
     system "clear"
@@ -94,27 +117,6 @@ class ScienceDaily::CLI
       CHOICE
   end
 
-  def self.display_article
-    article = ScienceDaily::Article.all[current_choice]
-      system "clear"
-        puts <<~ARTICLE
-
-              #{"Title:".colorize(:light_blue)}
-              #{article.subtitle.colorize(:light_yellow)}
-
-              #{"Posted:".colorize(:light_blue)}  #{article.date_posted.colorize(:light_yellow)}
-              #{"Source:".colorize(:light_blue)}  #{article.source.colorize(:light_yellow)}
-
-              #{"Abstract:".colorize(:light_blue)}
-              #{article.abstract.colorize(:light_yellow).wrap_to_limit(65)}
-
-              #{"Full article:".colorize(:light_blue)}
-              #{article.full_url.colorize(:light_yellow)}
-
-        ARTICLE
-    cite_source_doc
-  end
-
   def self.choose_again_doc
     puts <<~ANOTHER
 
@@ -140,18 +142,20 @@ class ScienceDaily::CLI
   end
 
   def self.goodbye_doc
-    puts <<~BYE
+    system "clear"
+      puts <<~BYE
 
-            ~~~~ #{'Thank you!  We hope you found something fascinating!'.colorize(:magenta)} ~~~~
-    
-                       Headlines updated many times daily
-                       Please come again to see the latest 
-                       science FACTS instead of FAKE NEWS!
-    
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+              ~~~~ #{'Thank you!  We hope you found something fascinating!'.colorize(:magenta)} ~~~~
 
-	    	BYE
+                         Headlines updated many times daily
+                         Please come again to see the latest 
+                         science FACTS instead of FAKE NEWS!
+
+              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	      	  BYE
       sleep(5)
     exit
   end
+  
 end # class CLI end
