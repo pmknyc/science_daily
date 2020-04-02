@@ -28,7 +28,6 @@ class ScienceDaily::Scraper
     chosen_article.date_posted = site.css('dd#date_posted').text
     chosen_article.source = site.css('dd#source').text
     chosen_article.abstract = site.css('dd#abstract').text
-    binding.pry
     chosen_article  #article now has attributes
   end
 

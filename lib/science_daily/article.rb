@@ -2,13 +2,12 @@
 
 class ScienceDaily::Article
   
-  attr_accessor :list_updated, :subtitle, :source, :abstract, :date_posted, :full_url
+  attr_accessor :subtitle, :source, :abstract, :date_posted, :full_url
   attr_reader :title, :url 
  
   @@all = []
   @@updates = [] #track articles update times
-  @list_updated = []
-
+  
   def initialize(title, url) # from first scrape data
     @title = title
     @url = url
