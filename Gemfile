@@ -3,7 +3,7 @@ source "https://rubygems.org"
 # gemspec
 
 gem 'bundler', '>= 2.0'
-gem 'nokogiri', '>= 1.10.4'
+gem 'nokogiri', '>= 1.10.8'
 gem 'pry'
 gem 'require_relative'
 gem 'solargraph'

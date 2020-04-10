@@ -59,7 +59,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (>= 2.0)
   colorize
-  nokogiri (>= 1.10.4)
+  nokogiri (>= 1.10.8)
   pry
   require_relative
   solargraph
