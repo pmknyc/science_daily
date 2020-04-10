@@ -48,7 +48,7 @@ class ScienceDaily::CLI
 
   ####  1ST LEVEL DATA - HEADLINES LIST ####
     
-    def self.list_update_time
+  def self.list_update_time
     ScienceDaily::Article.topsci_headlines_latest_update
   end
 
@@ -147,9 +147,9 @@ class ScienceDaily::CLI
 
               ~~~~ #{'Thank you!  We hope you found something fascinating!'.colorize(:magenta)} ~~~~
 
-                         Headlines updated many times daily
-                         Please come again to see the latest 
-                         science FACTS instead of FAKE NEWS!
+                         Headlines updated many times daily.
+                         Come again to see what scientists 
+                         discover about our world every day!
 
               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -157,5 +157,5 @@ class ScienceDaily::CLI
       sleep(5)
     exit
   end
-  
+
 end # class CLI end
