@@ -8,9 +8,10 @@ class ScienceDaily::CLI
 	@@current_choice = -1
 	    
   def self.start
+    puts "Starting up! This may take a few seconds."
+    list_update_time #of the headlines list
+    create_articles #from scrape of headlines
     start_doc # Welcome message
-    list_update_time #headlines list most recent update
-    create_articles #scrape headlines list & create objects
     list_articles 
 		main_app_loop
 	end 
@@ -154,7 +155,7 @@ class ScienceDaily::CLI
               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	      	  BYE
-      sleep(5)
+      sleep(3)
     exit
   end
 

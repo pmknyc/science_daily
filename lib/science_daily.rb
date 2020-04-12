@@ -13,7 +13,7 @@ module ScienceDaily
   class Error < StandardError
   end
   
-end #module ScienceDaily end
+end #module ScienceDaily
 
       # require files statements must be AFTER declaring module b/c
       # sdnews executable file calls methods using module

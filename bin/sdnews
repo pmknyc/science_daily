@@ -2,6 +2,4 @@
 
 require_relative '../lib/science_daily.rb' 
 
-
 ScienceDaily::CLI.start
-

@@ -26,5 +26,6 @@
 *  Startup delay - try to fix
     DONE  String literals to change to String.new, make faster
           DONE  in main loop for input
-    DONE  make Welcome Message 1st in start method, add info explaining to user that app may take a few seconds
+    DONE  make Welcome Message 1st in start method, 
+    DONE add info explaining to user that app may take a few seconds
 

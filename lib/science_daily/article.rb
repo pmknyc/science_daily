@@ -42,7 +42,7 @@ class ScienceDaily::Article
           puts "#{i}. #{a.title}"
         end
       end
-    draw_border_line
+      draw_border_line
     ScienceDaily::CLI.choose_or_exit_doc
   end
 
