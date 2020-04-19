@@ -42,7 +42,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "require_relative"
   spec.add_dependency "wrapify"
 
-  spec.add_development_dependency "pry"
+  # spec.add_development_dependency "pry"
   spec.add_development_dependency "rake", ">= 12.3.3"
   spec_add_development_dependency 'solargraph'
 end

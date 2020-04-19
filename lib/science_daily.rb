@@ -2,7 +2,7 @@
 
 require 'nokogiri'
 require 'open-uri'
-require 'pry'
+# require 'pry'
 require 'colorize'
 require 'colorized_string'
 require 'solargraph'

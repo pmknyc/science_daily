@@ -4,21 +4,16 @@ GEM
     ast (2.4.0)
     backport (1.1.2)
     benchmark (0.1.0)
-    coderay (1.1.2)
     colorize (0.8.1)
     e2mmap (0.1.0)
     jaro_winkler (1.5.4)
     maruku (0.7.3)
-    method_source (1.0.0)
     mini_portile2 (2.4.0)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     parallel (1.19.1)
     parser (2.7.1.1)
       ast (~> 2.4.0)
-    pry (0.13.1)
-      coderay (~> 1.1)
-      method_source (~> 1.0)
     rainbow (3.0.0)
     require_relative (1.0.3)
     reverse_markdown (1.4.0)
@@ -60,7 +55,6 @@ DEPENDENCIES
   bundler (>= 2.0)
   colorize
   nokogiri (>= 1.10.8)
-  pry
   require_relative
   solargraph
   wrapify
