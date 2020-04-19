@@ -34,8 +34,8 @@ User Input
 ## Main app loop
 CLI.main_app_loop	
 num choice - CLI.main_app_loop
-CLI.add_article_features
-Article.add_article_features
+CLI.find_article_or_add_features
+Article.find_article_or_add_features
 Article.chosen_article - gets CLI.current_choice
 CLI.current_choice
 Scraper.article_features

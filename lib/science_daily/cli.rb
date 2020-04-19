@@ -28,7 +28,7 @@ class ScienceDaily::CLI
               choice = input.to_i - 1
               @@choices << choice
               @@current_choice = self.choices.last
-              add_article_features # for chosen article
+              find_article_or_add_features # for chosen article
               display_article
             else
               puts "\nI don't understand that. Please try again.\n"
@@ -63,8 +63,8 @@ class ScienceDaily::CLI
   
   #### 2nd LEVEL DATA - individual article features when chosen  ####
   
-  def self.add_article_features
-    ScienceDaily::Article.add_article_features
+  def self.find_article_or_add_features
+    ScienceDaily::Article.find_article_or_add_features
   end 
 
   def self.display_article

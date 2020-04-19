@@ -21,13 +21,13 @@ class ScienceDaily::Scraper
     end
   end
 
-  def self.article_features(chosen_article)
+  def self.add_article_features(chosen_article)
     site = Nokogiri::HTML(open("#{SITE}#{chosen_article.url}"))
-    chosen_article.full_url = "#{SITE}#{chosen_article.url}"
-    chosen_article.subtitle = site.css('h1#headline').text
-    chosen_article.date_posted = site.css('dd#date_posted').text
-    chosen_article.source = site.css('dd#source').text
-    chosen_article.abstract = site.css('dd#abstract').text
+      chosen_article.full_url = "#{SITE}#{chosen_article.url}"
+      chosen_article.subtitle = site.css('h1#headline').text
+      chosen_article.date_posted = site.css('dd#date_posted').text
+      chosen_article.source = site.css('dd#source').text
+      chosen_article.abstract = site.css('dd#abstract').text
     chosen_article  #article now has attributes
   end
 

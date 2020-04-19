@@ -6,7 +6,7 @@ class ScienceDaily::Article
   attr_reader :title, :url 
  
   @@all = []
-  @@updates = [] #track articles update times
+  @@updates = [] #track articles' update times for future features
   
   def initialize(title, url) # from first scrape data
     @title = title
@@ -59,16 +59,16 @@ class ScienceDaily::Article
 
   #### 2nd LEVEL DATA METHODS -- CHOSEN ARTICLE ####
 
-  def self.add_article_features
-    article = chosen_article
-      if !article.subtitle # not already exist
-        ScienceDaily::Scraper.article_features(article)
+  def self.find_article_or_add_features
+    article = find_chosen_article
+      if !article.subtitle # if article details not yet added
+        ScienceDaily::Scraper.add_article_features(article)
       else
-        article
+        article #may already have details if user chooses article multiple times
       end
   end
  
-  def self.chosen_article
+  def self.find_chosen_article
     all[ScienceDaily::CLI.current_choice] #finds article by index in Article.all array
   end
 end # class end
