@@ -5,7 +5,6 @@ class ScienceDaily::CLI
   attr_accessor :choices, :current_choice
 
   @@choices = []
-	@@current_choice = -1
 	    
   def self.start
     list_update_time #of the headlines list
@@ -28,7 +27,7 @@ class ScienceDaily::CLI
             when input.to_i.between?(1, 10)
               choice = input.to_i - 1
               @@choices << choice
-              @@current_choice = choice 
+              @@current_choice = self.choices.last
               add_article_features # for chosen article
               display_article
             else
