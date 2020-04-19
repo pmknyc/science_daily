@@ -79,7 +79,7 @@ class ScienceDaily::CLI
               #{"Source:".colorize(:light_blue)}  #{article.source.colorize(:light_yellow)}
 
               #{"Abstract:".colorize(:light_blue)}
-              #{article.abstract.colorize(:light_yellow).wrap_to_limit(65)}
+              #{article.abstract.colorize(:light_yellow).wrap_to_limit(80)}
 
               #{"Full article:".colorize(:light_blue)}
               #{article.full_url.colorize(:light_yellow)}
