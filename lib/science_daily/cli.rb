@@ -8,7 +8,6 @@ class ScienceDaily::CLI
 	@@current_choice = -1
 	    
   def self.start
-    puts "Starting up! This may take a few seconds."
     list_update_time #of the headlines list
     create_articles #from scrape of headlines
     start_doc # Welcome message

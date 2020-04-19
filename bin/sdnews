@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+puts "Starting up! This may take a few seconds."
+
 require_relative '../lib/science_daily.rb' 
 
 ScienceDaily::CLI.start
