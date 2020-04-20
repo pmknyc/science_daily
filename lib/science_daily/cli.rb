@@ -96,7 +96,7 @@ class ScienceDaily::CLI
 
           #{'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'.colorize(:light_blue)}
 
-                          #{'Welcome to Science Daily News'.colorize(:white)}
+                          #{'Welcome to Daily Science News'.colorize(:white)}
 
                  #{'Breaking news in science from around the world!'.colorize(:white)}
 

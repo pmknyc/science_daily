@@ -3,7 +3,7 @@ source "https://rubygems.org"
 # gemspec
 
 gem 'bundler', '>= 2.0'
-gem 'nokogiri', '>= 1.10.8'
+gem 'nokogiri', '> 1.10.4'
 # gem 'pry' # comment out to avoid writable dir warning to console
 gem 'require_relative'
 gem 'solargraph'
