@@ -132,8 +132,8 @@ class ScienceDaily::CLI
             #{'Acknowledgment:'.colorize(:light_blue)}
             Content is sourced from https://sciencedaily.com
             and complies with that site's permissions for use.
-            We ask you also to abide by Science Daily's terms of use, found here:
-            https://www.sciencedaily.com/terms.htm
+            We ask you also to abide by Science Daily's terms of use, 
+            found here: https://www.sciencedaily.com/terms.htm
 
       CITE
     sleep(5)
