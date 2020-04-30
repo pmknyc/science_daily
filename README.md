@@ -1,4 +1,4 @@
-# ScienceDaily
+# Daily Science News
 
 A CLI application that lets you quickly check 10 Top Science News headlines and a summary of each, similar to an RSS feed.
 
@@ -60,4 +60,4 @@ This app is available as open source under the terms of the [MIT License](https:
 
 ## Code of Conduct
 
-Everyone interacting in the ScienceDaily project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/pmknyc/science_daily/tree/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Daily Science News project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/pmknyc/science_daily/tree/master/CODE_OF_CONDUCT.md).
