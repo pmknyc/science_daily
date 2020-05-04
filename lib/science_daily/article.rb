@@ -8,14 +8,14 @@ class ScienceDaily::Article
   @@all = []
   @@updates = [] #track articles' update times for future features
   
-  def initialize(title, url) # from first scrape data
+  def initialize(title, url) # from first scrape data initialize == Lifecycle method in Ruby
     @title = title
     @url = url
     @@all << self if @@all.none?(self)
   end
 
   def self.all
-    @@all
+    @@all.sort_by(&:title)
   end
 
   def self.updates
@@ -45,6 +45,19 @@ class ScienceDaily::Article
       draw_border_line
     ScienceDaily::CLI.choose_or_exit_doc
   end
+
+#  def self.list_articles #top 10 headlines to console
+#    self.show_topsci_headlines_update_time
+#      self.all.each.with_index(1) do |a, i|
+#        unless i > 9
+#          puts " #{i}. #{a.title}"
+#        else 
+#          puts "#{i}. #{a.title}"
+#        end
+#      end
+#      draw_border_line
+#    ScienceDaily::CLI.choose_or_exit_doc
+#  end
 
   def self.draw_border_line
     puts "\n#{'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'.colorize(:light_blue)}"
